@@ -149,11 +149,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 		void OnElementChanged(object sender, ElementChangedEventArgs<Button> e)
 		{
-			if (_element != null)
-			{
-				_element.PropertyChanged -= OnElementPropertyChanged;
-				_element = null;
-			}
+			_element?.PropertyChanged -= OnElementPropertyChanged;
+			_element = null;
 
 			if (e.NewElement is Button button)
 			{

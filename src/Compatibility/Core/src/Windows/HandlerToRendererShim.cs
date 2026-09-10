@@ -39,15 +39,9 @@ namespace Microsoft.Maui.Controls.Compatibility
 
 			var oldElement = Element;
 
-			if (oldElement != null)
-			{
-				oldElement.PropertyChanged -= OnElementPropertyChanged;
-			}
+			oldElement?.PropertyChanged -= OnElementPropertyChanged;
 
-			if (element != null)
-			{
-				element.PropertyChanged += OnElementPropertyChanged;
-			}
+			element?.PropertyChanged += OnElementPropertyChanged;
 
 			Element = element;
 

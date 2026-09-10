@@ -55,10 +55,7 @@ namespace Maui.Controls.Sample.CollectionViewGalleries.SelectionGalleries
 			get => _selectedItems;
 			set
 			{
-				if (_selectedItems != null)
-				{
-					_selectedItems.CollectionChanged -= SelectedItemsCollectionChanged;
-				}
+				_selectedItems?.CollectionChanged -= SelectedItemsCollectionChanged;
 
 				_selectedItems = value;
 

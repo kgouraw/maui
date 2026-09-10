@@ -103,8 +103,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 		protected override void OnElementChanged(ElementChangedEventArgs<CheckBox> e)
 		{
-			if (e.OldElement != null)
-				e.OldElement.CheckedChanged -= OnElementCheckedChanged;
+			e.OldElement?.CheckedChanged -= OnElementCheckedChanged;
 
 			if (e.NewElement != null)
 			{

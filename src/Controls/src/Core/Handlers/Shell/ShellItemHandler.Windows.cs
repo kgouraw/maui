@@ -42,8 +42,7 @@ namespace Microsoft.Maui.Controls.Handlers
 
 		void OnNavigationViewLoaded(object sender, RoutedEventArgs e)
 		{
-			if (PlatformView is not null)
-				PlatformView.Loaded -= OnNavigationViewLoaded;
+			PlatformView?.Loaded -= OnNavigationViewLoaded;
 
 			UpdateSearchHandler();
 			MapMenuItems();
@@ -75,8 +74,7 @@ namespace Microsoft.Maui.Controls.Handlers
 
 			base.ConnectHandler(platformView);
 
-			if (mauiNavView is not null)
-				mauiNavView.SelectionChanged += OnNavigationTabChanged;
+			mauiNavView?.SelectionChanged += OnNavigationTabChanged;
 		}
 
 		protected override void DisconnectHandler(FrameworkElement platformView)
@@ -88,11 +86,9 @@ namespace Microsoft.Maui.Controls.Handlers
 
 			platformView.Loaded -= OnNavigationViewLoaded;
 
-			if (_currentShellSection != null)
-				_currentShellSection.PropertyChanged -= OnCurrentShellSectionPropertyChanged;
+			_currentShellSection?.PropertyChanged -= OnCurrentShellSectionPropertyChanged;
 
-			if (_currentSearchHandler != null)
-				_currentSearchHandler.PropertyChanged -= OnCurrentSearchHandlerPropertyChanged;
+			_currentSearchHandler?.PropertyChanged -= OnCurrentSearchHandlerPropertyChanged;
 
 			if (_shellItem?.Parent is IShellController controller)
 			{
@@ -245,10 +241,7 @@ namespace Microsoft.Maui.Controls.Handlers
 			var newSearchHandler = shell.GetEffectiveValue<SearchHandler?>(Shell.SearchHandlerProperty, null);
 			if (newSearchHandler != _currentSearchHandler)
 			{
-				if (_currentSearchHandler is not null)
-				{
-					_currentSearchHandler.PropertyChanged -= OnCurrentSearchHandlerPropertyChanged;
-				}
+				_currentSearchHandler?.PropertyChanged -= OnCurrentSearchHandlerPropertyChanged;
 
 				_currentSearchHandler = newSearchHandler;
 
@@ -288,10 +281,10 @@ namespace Microsoft.Maui.Controls.Handlers
 
 					UpdateQueryIcon();
 				}
-				else if (autoSuggestBox is not null)
+				else
 				{
 					// there is no current search handler, so hide the autoSuggestBox
-					autoSuggestBox.Visibility = UI.Xaml.Visibility.Collapsed;
+					autoSuggestBox?.Visibility = UI.Xaml.Visibility.Collapsed;
 				}
 			}
 		}
@@ -396,10 +389,7 @@ namespace Microsoft.Maui.Controls.Handlers
 			if (_currentShellSection == VirtualView.CurrentItem)
 				return;
 
-			if (_currentShellSection != null)
-			{
-				_currentShellSection.PropertyChanged -= OnCurrentShellSectionPropertyChanged;
-			}
+			_currentShellSection?.PropertyChanged -= OnCurrentShellSectionPropertyChanged;
 
 			_currentShellSection = VirtualView.CurrentItem;
 
@@ -421,10 +411,7 @@ namespace Microsoft.Maui.Controls.Handlers
 
 			MapMenuItems();
 
-			if (_currentShellSection != null)
-			{
-				_currentShellSection.PropertyChanged += OnCurrentShellSectionPropertyChanged;
-			}
+			_currentShellSection?.PropertyChanged += OnCurrentShellSectionPropertyChanged;
 		}
 
 		void OnCurrentShellSectionPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
