@@ -39,11 +39,8 @@ namespace Microsoft.Maui.Storage
 			};
 
 #if !MACCATALYST
-			if (documentPicker.PresentationController != null)
-			{
-				documentPicker.PresentationController.Delegate =
+			documentPicker.PresentationController?.Delegate =
 					new UIPresentationControllerDelegate(() => GetFileResults(null, tcs));
-			}
 #endif
 
 			var parentController = WindowStateManager.Default.GetCurrentUIViewController(true);

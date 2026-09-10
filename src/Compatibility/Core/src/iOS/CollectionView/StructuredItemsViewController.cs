@@ -36,15 +36,9 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 			if (disposing)
 			{
-				if (_headerViewFormsElement != null)
-				{
-					_headerViewFormsElement.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
-				}
+				_headerViewFormsElement?.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
 
-				if (_footerViewFormsElement != null)
-				{
-					_footerViewFormsElement.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
-				}
+				_footerViewFormsElement?.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
 
 				_headerUIView = null;
 				_headerViewFormsElement = null;
@@ -140,9 +134,9 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 				RemeasureLayout(formsElement);
 				formsElement.MeasureInvalidated += OnFormsElementMeasureInvalidated;
 			}
-			else if (uiView != null)
+			else
 			{
-				uiView.SizeToFit();
+				uiView?.SizeToFit();
 			}
 		}
 

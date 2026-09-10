@@ -225,7 +225,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 			DeviceDisplay.MainDisplayInfoChanged -= OnDisplayInfoChanged;
 
 			UnsubscribeCollectionItemsSourceChanged(ItemsSource);
-			
+
 			_carouselViewLoopManager?.Dispose();
 			_carouselViewLoopManager = null;
 		}
@@ -233,9 +233,9 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 		void Setup(CarouselView carouselView)
 		{
 			InitializeCarouselViewLoopManager();
-						
+
 			_oldViews = new List<View>();
-			
+
 			carouselView.Scrolled += CarouselViewScrolled;
 			DeviceDisplay.MainDisplayInfoChanged += OnDisplayInfoChanged;
 
@@ -408,10 +408,16 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 
 			var carouselPosition = carousel.Position;
 
+
+<<<<<<< TODO: Unmerged change from project 'Controls.Core(net9.0-maccatalyst18.0)', Before:
 			if (LoopItemsSource != null)
 			{
 				LoopItemsSource.Loop = carousel.Loop;
 			}
+=======
+			LoopItemsSource?.Loop = carousel.Loop;
+>>>>>>> After
+			LoopItemsSource?.Loop = carousel.Loop;
 
 			CollectionView.ReloadData();
 
@@ -563,7 +569,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 			}
 
 			// We aren't ready to update the visual states yet
-			if(_oldViews == null)
+			if (_oldViews == null)
 			{
 				return;
 			}

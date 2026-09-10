@@ -340,7 +340,7 @@ namespace Microsoft.Maui.Graphics
 			InvalidateSelf();
 		}
 
-		public void InvalidateBorderBounds()
+		public static void InvalidateBorderBounds()
 		{
 			InvalidateSelf();
 		}
@@ -435,17 +435,11 @@ namespace Microsoft.Maui.Graphics
 
 			if (disposing)
 			{
-				if (_borderPathEffect != null)
-				{
-					_borderPathEffect.Dispose();
-					_borderPathEffect = null;
-				}
+				_borderPathEffect?.Dispose();
+				_borderPathEffect = null;
 
-				if (_clipPath != null)
-				{
-					_clipPath.Dispose();
-					_clipPath = null;
-				}
+				_clipPath?.Dispose();
+				_clipPath = null;
 			}
 
 			DisposeBorder(disposing);
@@ -457,11 +451,8 @@ namespace Microsoft.Maui.Graphics
 		{
 			if (disposing)
 			{
-				if (_borderPaint != null)
-				{
-					_borderPaint.Dispose();
-					_borderPaint = null;
-				}
+				_borderPaint?.Dispose();
+				_borderPaint = null;
 			}
 		}
 

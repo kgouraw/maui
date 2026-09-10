@@ -67,8 +67,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 		{
 			base.OnAttachedToWindow();
 
-			if (Control != null)
-				Control.NestedScrollingEnabled = (Parent.GetParentOfType<NestedScrollView>() != null);
+			Control?.NestedScrollingEnabled = (Parent.GetParentOfType<NestedScrollView>() != null);
 
 			// There might be a better way to go about doing this but from what I can tell 
 			// once you detach and then reattach a ListView the cells become unselectable 
@@ -94,7 +93,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			// https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/widget/ListView.java;l=1314-1322?q=ListView
 			// This causes issues because if a TextCell already has a view that's attached to the visual tree, then `OnMeasure(AT_MOST)`
 			// will call "GetView" without a convert view. Android basically creates an in memory copy of the table to calculate the measure.
-   			//
+			//
 			// Our problem is that we don't have a way of knowing if a view we are returning from getView will be the one we
 			// should track against our TextCellHandler or not. 
 			// This all worked fine in XF because in XF we didn't really block against just creating as many renderers against a single
@@ -183,16 +182,10 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			if (disposing)
 			{
 				// Unhook the adapter from the ListView before disposing of it
-				if (Control != null)
-				{
-					Control.Adapter = null;
-				}
+				Control?.Adapter = null;
 
-				if (_adapter != null)
-				{
-					_adapter.Dispose();
-					_adapter = null;
-				}
+				_adapter?.Dispose();
+				_adapter = null;
 			}
 
 

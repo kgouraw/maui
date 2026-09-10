@@ -354,10 +354,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items2
 
 			var carouselPosition = carousel.Position;
 
-			if (LoopItemsSource is not null)
-			{
-				LoopItemsSource.Loop = carousel.Loop;
-			}
+			LoopItemsSource?.Loop = carousel.Loop;
 
 			// CollectionView.ReloadData();
 
@@ -630,7 +627,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items2
 
 		public CarouselViewLoopManager()
 		{
-			
+
 		}
 		protected virtual void Dispose(bool disposing)
 		{

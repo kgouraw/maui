@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Specialized;
 using Foundation;
-using Microsoft.Maui.Controls.Internals;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Internals;
 using ObjCRuntime;
 using UIKit;
 
@@ -95,8 +95,7 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				if (SearchHandler != null)
 				{
 					var listProxy = (INotifyCollectionChanged)SearchController.ListProxy;
-					if (listProxy != null)
-						listProxy.CollectionChanged -= OnProxyCollectionChanged;
+					listProxy?.CollectionChanged -= OnProxyCollectionChanged;
 					SearchController.ListProxyChanged -= OnListProxyChanged;
 				}
 
