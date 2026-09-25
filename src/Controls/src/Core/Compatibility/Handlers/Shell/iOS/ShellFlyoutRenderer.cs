@@ -447,10 +447,7 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				{
 					FlyoutTransition.LayoutViews(View.Bounds, IsOpen ? 1 : 0, Flyout.ViewController.View, Detail.View, _flyoutBehavior);
 
-					if (TapoffView != null)
-					{
-						TapoffView.Layer.AddAnimation(tapOffViewAnimation, "opacity");
-					}
+					TapoffView?.Layer.AddAnimation(tapOffViewAnimation, "opacity");
 				});
 
 				_flyoutAnimation.AddCompletion((p) =>
@@ -478,10 +475,7 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				FlyoutTransition.LayoutViews(View.Bounds, IsOpen ? 1 : 0, Flyout.ViewController.View, Detail.View, _flyoutBehavior);
 				UpdateTapoffView();
 
-				if (TapoffView != null)
-				{
-					TapoffView.Layer.Opacity = IsOpen ? 1 : 0;
-				}
+				TapoffView?.Layer.Opacity = IsOpen ? 1 : 0;
 
 				UIAccessibility.PostNotification(UIAccessibilityPostNotification.ScreenChanged, null);
 			}

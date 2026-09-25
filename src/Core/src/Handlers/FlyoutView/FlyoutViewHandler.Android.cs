@@ -134,8 +134,7 @@ namespace Microsoft.Maui.Handlers
 			if (_flyoutView == newFlyoutView)
 				return;
 
-			if (_flyoutView != null)
-				_flyoutView.RemoveFromParent();
+			_flyoutView?.RemoveFromParent();
 
 			_flyoutView = newFlyoutView;
 			if (_flyoutView == null)
@@ -277,7 +276,7 @@ namespace Microsoft.Maui.Handlers
 			var behavior = VirtualView.FlyoutBehavior;
 			if (_detailViewFragment?.DetailView?.Handler?.PlatformView == null)
 				return;
-			
+
 			// Important to create the layout views before setting the lock mode
 			LayoutViews();
 

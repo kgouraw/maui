@@ -78,8 +78,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 			Element = element;
 			OnElementChanged(new VisualElementChangedEventArgs(oldElement, element));
 
-			if (element != null)
-				element.SendViewInitialized(NativeView);
+			element?.SendViewInitialized(NativeView);
 
 			EffectUtilities.RegisterEffectControlProvider(this, oldElement, element);
 		}
@@ -271,8 +270,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 				foreach (var childViewController in ViewControllers)
 					childViewController.Dispose();
 
-				if (_tracker != null)
-					_tracker.Dispose();
+				_tracker?.Dispose();
 
 				_secondaryToolbar.RemoveFromSuperview();
 				_secondaryToolbar.Dispose();
@@ -1016,13 +1014,11 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 					if (_child == value)
 						return;
 
-					if (_child != null)
-						_child.PropertyChanged -= HandleChildPropertyChanged;
+					_child?.PropertyChanged -= HandleChildPropertyChanged;
 
 					_child = value;
 
-					if (_child != null)
-						_child.PropertyChanged += HandleChildPropertyChanged;
+					_child?.PropertyChanged += HandleChildPropertyChanged;
 
 					UpdateHasBackButton();
 					UpdateLargeTitles();
@@ -1133,11 +1129,19 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 					_tracker.CollectionChanged -= TrackerOnCollectionChanged;
 					_tracker = null;
 
+
+<<<<<<< TODO: Unmerged change from project 'Compatibility(net9.0-maccatalyst18.0)', Before:
 					if (NavigationItem.TitleView != null)
 					{
 						NavigationItem.TitleView.Dispose();
 						NavigationItem.TitleView = null;
 					}
+=======
+					NavigationItem.TitleView?.Dispose();
+					NavigationItem.TitleView = null;
+>>>>>>> After
+					NavigationItem.TitleView?.Dispose();
+					NavigationItem.TitleView = null;
 
 					if (NavigationItem.RightBarButtonItems != null)
 					{
@@ -1420,6 +1424,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 						(primaries = primaries ?? new List<UIBarButtonItem>()).Add(item.ToUIBarButtonItem());
 				}
 
+
+<<<<<<< TODO: Unmerged change from project 'Compatibility(net9.0-maccatalyst18.0)', Before:
 				if (primaries != null)
 					primaries.Reverse();
 				NavigationItem.SetRightBarButtonItems(primaries == null ? Array.Empty<UIBarButtonItem>() : primaries.ToArray(), false);
@@ -1682,6 +1688,527 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 				if (_icon != null)
 					_icon.Frame = new RectangleF(0, 0, IconWidth, Math.Min(toolbarHeight, IconHeight));
+=======
+				primaries?.Reverse();
+				NavigationItem.SetRightBarButtonItems(primaries == null ? Array.Empty<UIBarButtonItem>() : primaries.ToArray(), false);
+				ToolbarItems = secondaries == null ? Array.Empty<UIBarButtonItem>() : secondaries.ToArray();
+
+				NavigationRenderer n;
+				if (_navigation.TryGetTarget(out n))
+					n.UpdateToolBarVisible();
+			}
+
+			void UpdateLargeTitles()
+			{
+				var page = Child;
+				if (page != null && Forms.IsiOS11OrNewer)
+				{
+					var largeTitleDisplayMode = page.OnThisPlatform().LargeTitleDisplay();
+					switch (largeTitleDisplayMode)
+					{
+						case LargeTitleDisplayMode.Always:
+							NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Always;
+							break;
+						case LargeTitleDisplayMode.Automatic:
+							NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Automatic;
+							break;
+						case LargeTitleDisplayMode.Never:
+							NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Never;
+							break;
+					}
+				}
+			}
+
+			public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+			{
+				IVisualElementRenderer childRenderer;
+				if (Child != null && (childRenderer = Platform.GetRenderer(Child)) != null)
+					return childRenderer.ViewController.GetSupportedInterfaceOrientations();
+				return base.GetSupportedInterfaceOrientations();
+			}
+
+			public override UIInterfaceOrientation PreferredInterfaceOrientationForPresentation()
+			{
+				IVisualElementRenderer childRenderer;
+				if (Child != null && (childRenderer = Platform.GetRenderer(Child)) != null)
+					return childRenderer.ViewController.PreferredInterfaceOrientationForPresentation();
+				return base.PreferredInterfaceOrientationForPresentation();
+			}
+#pragma warning disable CA1416, CA1422 // TODO: ShouldAutorotateToInterfaceOrientation(...) has [UnsupportedOSPlatform("ios6.0")]
+			public override bool ShouldAutorotate()
+			{
+				IVisualElementRenderer childRenderer;
+				if (Child != null && (childRenderer = Platform.GetRenderer(Child)) != null)
+					return childRenderer.ViewController.ShouldAutorotate();
+				return base.ShouldAutorotate();
+			}
+
+			public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+			{
+				IVisualElementRenderer childRenderer;
+
+				if (Child != null && (childRenderer = Platform.GetRenderer(Child)) != null)
+					return childRenderer.ViewController.ShouldAutorotateToInterfaceOrientation(toInterfaceOrientation);
+				return base.ShouldAutorotateToInterfaceOrientation(toInterfaceOrientation);
+			}
+#pragma warning restore CA1416, CA1422
+			public override bool ShouldAutomaticallyForwardRotationMethods => true;
+
+			public override async void DidMoveToParentViewController(UIViewController parent)
+			{
+				//we are being removed from the UINavigationPage
+				if (parent == null)
+				{
+					NavigationRenderer navRenderer;
+					if (_navigation.TryGetTarget(out navRenderer))
+						await navRenderer.UpdateFormsInnerNavigation(Child);
+				}
+				base.DidMoveToParentViewController(parent);
+			}
+		}
+
+		public override UIViewController ChildViewControllerForStatusBarHidden()
+		{
+			return Platform.GetRenderer(Current)?.ViewController ??
+				(Current.Handler as IPlatformViewHandler)?.ViewController;
+		}
+
+		public override UIViewController ChildViewControllerForHomeIndicatorAutoHidden =>
+			ChildViewControllerForStatusBarHidden();
+
+		void IEffectControlProvider.RegisterEffect(Effect effect)
+		{
+			VisualElementRenderer<VisualElement>.RegisterEffect(effect, View);
+		}
+
+		internal class FormsNavigationBar : UINavigationBar
+		{
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			public FormsNavigationBar() : base()
+			{
+			}
+
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			public FormsNavigationBar(Foundation.NSCoder coder) : base(coder)
+			{
+			}
+
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			protected FormsNavigationBar(Foundation.NSObjectFlag t) : base(t)
+			{
+			}
+
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			protected internal FormsNavigationBar(NativeHandle handle) : base(handle)
+			{
+			}
+
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			public FormsNavigationBar(RectangleF frame) : base(frame)
+			{
+			}
+
+			public RectangleF BackButtonFrameSize { get; private set; }
+			public UILabel NavBarLabel { get; private set; }
+
+			public override void LayoutSubviews()
+			{
+				if (!Forms.IsiOS11OrNewer)
+				{
+					for (int i = 0; i < this.Subviews.Length; i++)
+					{
+						if (Subviews[i] is UIView view)
+						{
+							if (view.Class.Name == "_UINavigationBarBackIndicatorView")
+							{
+								if (view.Alpha == 0)
+									BackButtonFrameSize = CGRect.Empty;
+								else
+									BackButtonFrameSize = view.Frame;
+
+								break;
+							}
+							else if (view.Class.Name == "UINavigationItemButtonView")
+							{
+								if (view.Subviews.Length == 0)
+									NavBarLabel = null;
+								else if (view.Subviews[0] is UILabel titleLabel)
+									NavBarLabel = titleLabel;
+							}
+						}
+					}
+				}
+
+				base.LayoutSubviews();
+			}
+		}
+
+		class Container : UIView
+		{
+			View _view;
+			FormsNavigationBar _bar;
+			IVisualElementRenderer _child;
+			UIImageView _icon;
+			bool _disposed;
+
+			public Container(View view, UINavigationBar bar) : base(bar.Bounds)
+			{
+				if (Forms.IsiOS11OrNewer)
+				{
+					TranslatesAutoresizingMaskIntoConstraints = false;
+				}
+				else
+				{
+					TranslatesAutoresizingMaskIntoConstraints = true;
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
+				}
+
+				_bar = bar as FormsNavigationBar;
+				if (view != null)
+				{
+					_view = view;
+					_child = Platform.CreateRenderer(view);
+					Platform.SetRenderer(view, _child);
+					AddSubview(_child.NativeView);
+				}
+
+				ClipsToBounds = true;
+			}
+
+			public override CGSize IntrinsicContentSize => UILayoutFittingExpandedSize;
+
+			nfloat IconHeight => _icon?.Frame.Height ?? 0;
+			nfloat IconWidth => _icon?.Frame.Width ?? 0;
+
+			// Navigation bar will not stretch past these values. Prevent content clipping.
+			// iOS11 does this for us automatically, but apparently iOS10 doesn't.
+			nfloat ToolbarHeight
+			{
+				get
+				{
+					if (Superview?.Bounds.Height > 0)
+						return Superview.Bounds.Height;
+
+					return (DeviceInfo.Idiom == DeviceIdiom.Phone && DeviceDisplay.MainDisplayInfo.Orientation.IsLandscape()) ? 32 : 44;
+				}
+			}
+
+			public override CGRect Frame
+			{
+				get => base.Frame;
+				set
+				{
+					if (Superview != null)
+					{
+						if (!Forms.IsiOS11OrNewer)
+						{
+							value.Y = Superview.Bounds.Y;
+
+							if (_bar != null && String.IsNullOrWhiteSpace(_bar.NavBarLabel?.Text) && _bar.BackButtonFrameSize != RectangleF.Empty)
+							{
+								var xSpace = _bar.BackButtonFrameSize.Width + (_bar.BackButtonFrameSize.X * 2);
+								value.Width = (value.X - xSpace) + value.Width;
+								value.X = xSpace;
+							}
+						};
+
+						value.Height = ToolbarHeight;
+					}
+
+					base.Frame = value;
+				}
+			}
+
+			public UIImageView Icon
+			{
+				set
+				{
+					_icon?.RemoveFromSuperview();
+
+					_icon = value;
+
+					if (_icon != null)
+						AddSubview(_icon);
+				}
+			}
+
+			public override SizeF SizeThatFits(SizeF size)
+			{
+				return new SizeF(size.Width, ToolbarHeight);
+			}
+
+			public override void LayoutSubviews()
+			{
+				base.LayoutSubviews();
+				if (Frame == CGRect.Empty || Frame.Width >= 10000 || Frame.Height >= 10000)
+					return;
+
+				nfloat toolbarHeight = ToolbarHeight;
+
+				double height = Math.Min(toolbarHeight, Bounds.Height);
+
+				_icon?.Frame = new RectangleF(0, 0, IconWidth, Math.Min(toolbarHeight, IconHeight));
+>>>>>>> After
+				primaries?.Reverse();
+				NavigationItem.SetRightBarButtonItems(primaries == null ? Array.Empty<UIBarButtonItem>() : primaries.ToArray(), false);
+				ToolbarItems = secondaries == null ? Array.Empty<UIBarButtonItem>() : secondaries.ToArray();
+
+				NavigationRenderer n;
+				if (_navigation.TryGetTarget(out n))
+					n.UpdateToolBarVisible();
+			}
+
+			void UpdateLargeTitles()
+			{
+				var page = Child;
+				if (page != null && Forms.IsiOS11OrNewer)
+				{
+					var largeTitleDisplayMode = page.OnThisPlatform().LargeTitleDisplay();
+					switch (largeTitleDisplayMode)
+					{
+						case LargeTitleDisplayMode.Always:
+							NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Always;
+							break;
+						case LargeTitleDisplayMode.Automatic:
+							NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Automatic;
+							break;
+						case LargeTitleDisplayMode.Never:
+							NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Never;
+							break;
+					}
+				}
+			}
+
+			public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+			{
+				IVisualElementRenderer childRenderer;
+				if (Child != null && (childRenderer = Platform.GetRenderer(Child)) != null)
+					return childRenderer.ViewController.GetSupportedInterfaceOrientations();
+				return base.GetSupportedInterfaceOrientations();
+			}
+
+			public override UIInterfaceOrientation PreferredInterfaceOrientationForPresentation()
+			{
+				IVisualElementRenderer childRenderer;
+				if (Child != null && (childRenderer = Platform.GetRenderer(Child)) != null)
+					return childRenderer.ViewController.PreferredInterfaceOrientationForPresentation();
+				return base.PreferredInterfaceOrientationForPresentation();
+			}
+#pragma warning disable CA1416, CA1422 // TODO: ShouldAutorotateToInterfaceOrientation(...) has [UnsupportedOSPlatform("ios6.0")]
+			public override bool ShouldAutorotate()
+			{
+				IVisualElementRenderer childRenderer;
+				if (Child != null && (childRenderer = Platform.GetRenderer(Child)) != null)
+					return childRenderer.ViewController.ShouldAutorotate();
+				return base.ShouldAutorotate();
+			}
+
+			public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+			{
+				IVisualElementRenderer childRenderer;
+
+				if (Child != null && (childRenderer = Platform.GetRenderer(Child)) != null)
+					return childRenderer.ViewController.ShouldAutorotateToInterfaceOrientation(toInterfaceOrientation);
+				return base.ShouldAutorotateToInterfaceOrientation(toInterfaceOrientation);
+			}
+#pragma warning restore CA1416, CA1422
+			public override bool ShouldAutomaticallyForwardRotationMethods => true;
+
+			public override async void DidMoveToParentViewController(UIViewController parent)
+			{
+				//we are being removed from the UINavigationPage
+				if (parent == null)
+				{
+					NavigationRenderer navRenderer;
+					if (_navigation.TryGetTarget(out navRenderer))
+						await navRenderer.UpdateFormsInnerNavigation(Child);
+				}
+				base.DidMoveToParentViewController(parent);
+			}
+		}
+
+		public override UIViewController ChildViewControllerForStatusBarHidden()
+		{
+			return Platform.GetRenderer(Current)?.ViewController ??
+				(Current.Handler as IPlatformViewHandler)?.ViewController;
+		}
+
+		public override UIViewController ChildViewControllerForHomeIndicatorAutoHidden =>
+			ChildViewControllerForStatusBarHidden();
+
+		void IEffectControlProvider.RegisterEffect(Effect effect)
+		{
+			VisualElementRenderer<VisualElement>.RegisterEffect(effect, View);
+		}
+
+		internal class FormsNavigationBar : UINavigationBar
+		{
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			public FormsNavigationBar() : base()
+			{
+			}
+
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			public FormsNavigationBar(Foundation.NSCoder coder) : base(coder)
+			{
+			}
+
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			protected FormsNavigationBar(Foundation.NSObjectFlag t) : base(t)
+			{
+			}
+
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			protected internal FormsNavigationBar(NativeHandle handle) : base(handle)
+			{
+			}
+
+			[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
+			public FormsNavigationBar(RectangleF frame) : base(frame)
+			{
+			}
+
+			public RectangleF BackButtonFrameSize { get; private set; }
+			public UILabel NavBarLabel { get; private set; }
+
+			public override void LayoutSubviews()
+			{
+				if (!Forms.IsiOS11OrNewer)
+				{
+					for (int i = 0; i < this.Subviews.Length; i++)
+					{
+						if (Subviews[i] is UIView view)
+						{
+							if (view.Class.Name == "_UINavigationBarBackIndicatorView")
+							{
+								if (view.Alpha == 0)
+									BackButtonFrameSize = CGRect.Empty;
+								else
+									BackButtonFrameSize = view.Frame;
+
+								break;
+							}
+							else if (view.Class.Name == "UINavigationItemButtonView")
+							{
+								if (view.Subviews.Length == 0)
+									NavBarLabel = null;
+								else if (view.Subviews[0] is UILabel titleLabel)
+									NavBarLabel = titleLabel;
+							}
+						}
+					}
+				}
+
+				base.LayoutSubviews();
+			}
+		}
+
+		class Container : UIView
+		{
+			View _view;
+			FormsNavigationBar _bar;
+			IVisualElementRenderer _child;
+			UIImageView _icon;
+			bool _disposed;
+
+			public Container(View view, UINavigationBar bar) : base(bar.Bounds)
+			{
+				if (Forms.IsiOS11OrNewer)
+				{
+					TranslatesAutoresizingMaskIntoConstraints = false;
+				}
+				else
+				{
+					TranslatesAutoresizingMaskIntoConstraints = true;
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
+				}
+
+				_bar = bar as FormsNavigationBar;
+				if (view != null)
+				{
+					_view = view;
+					_child = Platform.CreateRenderer(view);
+					Platform.SetRenderer(view, _child);
+					AddSubview(_child.NativeView);
+				}
+
+				ClipsToBounds = true;
+			}
+
+			public override CGSize IntrinsicContentSize => UILayoutFittingExpandedSize;
+
+			nfloat IconHeight => _icon?.Frame.Height ?? 0;
+			nfloat IconWidth => _icon?.Frame.Width ?? 0;
+
+			// Navigation bar will not stretch past these values. Prevent content clipping.
+			// iOS11 does this for us automatically, but apparently iOS10 doesn't.
+			nfloat ToolbarHeight
+			{
+				get
+				{
+					if (Superview?.Bounds.Height > 0)
+						return Superview.Bounds.Height;
+
+					return (DeviceInfo.Idiom == DeviceIdiom.Phone && DeviceDisplay.MainDisplayInfo.Orientation.IsLandscape()) ? 32 : 44;
+				}
+			}
+
+			public override CGRect Frame
+			{
+				get => base.Frame;
+				set
+				{
+					if (Superview != null)
+					{
+						if (!Forms.IsiOS11OrNewer)
+						{
+							value.Y = Superview.Bounds.Y;
+
+							if (_bar != null && String.IsNullOrWhiteSpace(_bar.NavBarLabel?.Text) && _bar.BackButtonFrameSize != RectangleF.Empty)
+							{
+								var xSpace = _bar.BackButtonFrameSize.Width + (_bar.BackButtonFrameSize.X * 2);
+								value.Width = (value.X - xSpace) + value.Width;
+								value.X = xSpace;
+							}
+						}
+						;
+
+						value.Height = ToolbarHeight;
+					}
+
+					base.Frame = value;
+				}
+			}
+
+			public UIImageView Icon
+			{
+				set
+				{
+					_icon?.RemoveFromSuperview();
+
+					_icon = value;
+
+					if (_icon != null)
+						AddSubview(_icon);
+				}
+			}
+
+			public override SizeF SizeThatFits(SizeF size)
+			{
+				return new SizeF(size.Width, ToolbarHeight);
+			}
+
+			public override void LayoutSubviews()
+			{
+				base.LayoutSubviews();
+				if (Frame == CGRect.Empty || Frame.Width >= 10000 || Frame.Height >= 10000)
+					return;
+
+				nfloat toolbarHeight = ToolbarHeight;
+
+				double height = Math.Min(toolbarHeight, Bounds.Height);
+
+				_icon?.Frame = new RectangleF(0, 0, IconWidth, Math.Min(toolbarHeight, IconHeight));
 
 				if (_child?.Element != null)
 				{

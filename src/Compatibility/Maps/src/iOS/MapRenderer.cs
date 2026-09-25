@@ -82,11 +82,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Maps.MacOS
 				mkMapView.RegionChanged -= MkMapViewOnRegionChanged;
 				mkMapView.GetViewForAnnotation = null;
 				mkMapView.OverlayRenderer = null;
-				if (mkMapView.Delegate != null)
-				{
-					mkMapView.Delegate.Dispose();
-					mkMapView.Delegate = null;
-				}
+				mkMapView.Delegate?.Dispose();
+				mkMapView.Delegate = null;
 				mkMapView.RemoveFromSuperview();
 #if __MOBILE__
 				mkMapView.RemoveGestureRecognizer(_mapClickedGestureRecognizer);
@@ -96,14 +93,13 @@ namespace Microsoft.Maui.Controls.Compatibility.Maps.MacOS
 				// This renderer is done with the MKMapView; we can put it in the pool
 				// for other rendererers to use in the future
 				MapPool.Add(mkMapView);
+
+#endif
 #endif
 				// For iOS versions < 9, the MKMapView will be disposed in ViewRenderer's Dispose method
 
-				if (_locationManager != null)
-				{
-					_locationManager.Dispose();
-					_locationManager = null;
-				}
+				_locationManager?.Dispose();
+				_locationManager = null;
 
 				_lastTouchedView = null;
 			}

@@ -39,11 +39,8 @@ namespace Microsoft.Maui.ApplicationModel
 
 		void OnActiveWindowChanged(UI.Xaml.Window? window)
 		{
-			if (_currentWindowManager is not null)
-			{
-				_currentWindowManager.WindowMessage -= OnWindowMessage;
-				_currentWindowManager = null;
-			}
+			_currentWindowManager?.WindowMessage -= OnWindowMessage;
+			_currentWindowManager = null;
 
 			if (window is not null)
 			{

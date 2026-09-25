@@ -217,11 +217,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				return;
 			}
 
-			if (Layout != null)
-			{
-				// Stop tracking the old layout
-				Layout.PropertyChanged -= LayoutPropertyChanged;
-			}
+			// Stop tracking the old layout
+			Layout?.PropertyChanged -= LayoutPropertyChanged;
 
 			// Stop listening for ScrollTo requests
 			oldElement.ScrollToRequested -= ScrollToRequested;
@@ -231,15 +228,9 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				CleanUpCollectionViewSource();
 			}
 
-			if (ListViewBase != null)
-			{
-				ListViewBase.ItemsSource = null;
-			}
+			ListViewBase?.ItemsSource = null;
 
-			if (_scrollViewer != null)
-			{
-				_scrollViewer.ViewChanged -= OnScrollViewChanged;
-			}
+			_scrollViewer?.ViewChanged -= OnScrollViewChanged;
 		}
 
 		void UpdateVerticalScrollBarVisibility()
@@ -406,14 +397,21 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 		protected virtual void UpdateItemsLayout()
 		{
-			if (_scrollViewer != null)
-				_scrollViewer.ViewChanged -= OnScrollViewChanged;
+			_scrollViewer?.ViewChanged -= OnScrollViewChanged;
 
+
+<<<<<<< TODO: Unmerged change from project 'Compatibility(net9.0-windows10.0.20348.0)', Before:
 			if (ListViewBase != null)
 			{
 				ListViewBase.ItemsSource = null;
 				ListViewBase = null;
 			}
+=======
+			ListViewBase?.ItemsSource = null;
+			ListViewBase = null;
+>>>>>>> After
+			ListViewBase?.ItemsSource = null;
+			ListViewBase = null;
 
 			ListViewBase = SelectListViewBase();
 			ListViewBase.IsSynchronizedWithCurrentItem = false;
@@ -597,7 +595,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 				default:
 					return elementBounds.Left < containerBounds.Right && elementBounds.Right > containerBounds.Left;
-			};
+			}
+			;
 		}
 
 		void OnScrollViewChanged(object sender, ScrollViewerViewChangedEventArgs e)

@@ -2,6 +2,7 @@ using Microsoft.Maui.Controls.BindingSourceGen;
 using Xunit;
 
 namespace BindingSourceGen.UnitTests;
+
 public class IntegrationTests
 {
 	[Fact]

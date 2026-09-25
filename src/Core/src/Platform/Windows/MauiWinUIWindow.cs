@@ -28,7 +28,7 @@ namespace Microsoft.Maui
 		{
 			_windowManager = WindowMessageManager.Get(this);
 			_viewSettings = new ViewManagement.UISettings();
-			
+
 			Activated += OnActivated;
 			Closed += OnClosedPrivate;
 			VisibilityChanged += OnVisibilityChanged;
@@ -40,10 +40,7 @@ namespace Microsoft.Maui
 			{
 				var titleBar = this.GetAppWindow()?.TitleBar;
 
-				if (titleBar is not null)
-				{
-					titleBar.ExtendsContentIntoTitleBar = true;
-				}
+				titleBar?.ExtendsContentIntoTitleBar = true;
 
 				_viewSettings.ColorValuesChanged += _viewSettings_ColorValuesChanged;
 				SetTileBarButtonColors();

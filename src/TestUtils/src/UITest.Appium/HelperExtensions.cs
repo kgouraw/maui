@@ -334,7 +334,7 @@ namespace UITest.Appium
 		public static void TouchAndHoldCoordinates(this IApp app, float x, float y)
 		{
 			app.CommandExecutor.Execute("touchAndHoldCoordinates", new Dictionary<string, object>
-			{		
+			{
 				{ "x", x },
 				{ "y", y }
 			});
@@ -542,10 +542,10 @@ namespace UITest.Appium
 		{
 			IReadOnlyCollection<IUIElement> elements = app.FindElements(marked);
 
-			if(elements is not null && elements.Count > 0)
+			if (elements is not null && elements.Count > 0)
 			{
 				IUIElement firstElement() => elements.First();
-				
+
 				var result = Wait(firstElement, i => i != null, timeoutMessage, timeout, retryFrequency);
 
 				return result;
