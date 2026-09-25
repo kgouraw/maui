@@ -204,11 +204,8 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 
 			if (ContentCell != nativeCell)
 			{
-				if (ContentCell != null)
-				{
-					ContentCell.RemoveFromSuperview();
-					ContentCell = null;
-				}
+				ContentCell?.RemoveFromSuperview();
+				ContentCell = null;
 
 				ContentCell = nativeCell;
 
@@ -270,11 +267,8 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 
 				_tableView = null;
 
-				if (_moreButton != null)
-				{
-					_moreButton.Dispose();
-					_moreButton = null;
-				}
+				_moreButton?.Dispose();
+				_moreButton = null;
 
 				for (var i = 0; i < _buttons.Count; i++)
 					_buttons[i].Dispose();

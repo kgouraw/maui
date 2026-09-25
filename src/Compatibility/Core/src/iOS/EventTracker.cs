@@ -65,8 +65,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.MacOS
 
 		internal void Disconnect()
 		{
-			if (ElementGestureRecognizers != null)
-				ElementGestureRecognizers.CollectionChanged -= _collectionChangedHandler;
+			ElementGestureRecognizers?.CollectionChanged -= _collectionChangedHandler;
 		}
 
 		public void Dispose()

@@ -6,10 +6,7 @@ namespace Microsoft.Maui.Platform
 	{
 		public static void UpdateIsToggled(this ToggleSwitch toggleSwitch, ISwitch view)
 		{
-			if (toggleSwitch != null)
-			{
-				toggleSwitch.IsOn = view?.IsOn ?? false;
-			}
+			toggleSwitch?.IsOn = view?.IsOn ?? false;
 		}
 
 		public static void UpdateTrackColor(this ToggleSwitch toggleSwitch, ISwitch view)

@@ -33,14 +33,14 @@ namespace Microsoft.Maui.Platform
 			}
 			else
 #endif
-			if (OperatingSystem.IsIOSVersionAtLeast(13) || OperatingSystem.IsMacCatalystVersionAtLeast(13, 1))
-			{
-				UIApplication.SharedApplication.RequestSceneSessionActivation(
-					null,
-					userActivity,
-					null,
-					errorAction);
-			}
+				if (OperatingSystem.IsIOSVersionAtLeast(13) || OperatingSystem.IsMacCatalystVersionAtLeast(13, 1))
+				{
+					UIApplication.SharedApplication.RequestSceneSessionActivation(
+						null,
+						userActivity,
+						null,
+						errorAction);
+				}
 		}
 
 		public static void CreatePlatformWindow(this IUIApplicationDelegate platformApplication, IApplication application, UIApplication uiApplication, NSDictionary launchOptions)

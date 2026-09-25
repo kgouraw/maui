@@ -98,11 +98,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 			var pivotItem = containerItem as PivotItem;
 
-			if (pivotItem != null)
-			{
-				// We need to know when the data context changes so we can set the automation name to the page title
-				pivotItem.DataContextChanged += SetPivotItemAutomationName;
-			}
+			// We need to know when the data context changes so we can set the automation name to the page title
+			pivotItem?.DataContextChanged += SetPivotItemAutomationName;
 
 			return containerItem;
 		}
@@ -122,10 +119,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 		void UpdateToolbarDynamicOverflowEnabled()
 		{
-			if (_commandBar != null)
-			{
-				_commandBar.IsDynamicOverflowEnabled = ToolbarDynamicOverflowEnabled;
-			}
+			_commandBar?.IsDynamicOverflowEnabled = ToolbarDynamicOverflowEnabled;
 		}
 	}
 }

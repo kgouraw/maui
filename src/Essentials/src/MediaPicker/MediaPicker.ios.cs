@@ -91,11 +91,8 @@ namespace Microsoft.Maui.Media
 				}
 			};
 
-			if (picker.PresentationController != null)
-			{
-				picker.PresentationController.Delegate =
+			picker.PresentationController?.Delegate =
 					new UIPresentationControllerDelegate(() => GetFileResult(null, tcs));
-			}
 
 			await vc.PresentViewControllerAsync(picker, true);
 

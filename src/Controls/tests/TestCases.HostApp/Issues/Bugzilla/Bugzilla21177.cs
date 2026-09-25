@@ -9,10 +9,7 @@ public class Bugzilla21177 : TestContentPage
 
 		public void InvokeItemSelected(int index)
 		{
-			if (ItemSelected != null)
-			{
-				ItemSelected.Invoke(this, index);
-			}
+			ItemSelected?.Invoke(this, index);
 		}
 	}
 
