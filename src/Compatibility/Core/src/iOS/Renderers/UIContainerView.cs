@@ -104,8 +104,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 			if (disposing)
 			{
-				if (_view is not null)
-					_view.MeasureInvalidated -= OnMeasureInvalidated;
+				_view?.MeasureInvalidated -= OnMeasureInvalidated;
 
 				_renderer?.Dispose();
 				_renderer = null;

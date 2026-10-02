@@ -150,10 +150,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.MacOS
 			base.Dispose(disposing);
 			if (disposing)
 			{
-				if (Element != null)
-				{
-					Element.PropertyChanging -= ElementPropertyChanging;
-				}
+				Element?.PropertyChanging -= ElementPropertyChanging;
 			}
 		}
 
@@ -161,10 +158,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.MacOS
 		{
 			_perfectSizeValid = false;
 
-			if (e.OldElement != null)
-			{
-				e.OldElement.PropertyChanging -= ElementPropertyChanging;
-			}
+			e.OldElement?.PropertyChanging -= ElementPropertyChanging;
 
 			if (e.NewElement != null)
 			{

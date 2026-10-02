@@ -42,8 +42,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				if (_tracker == value)
 					return;
 
-				if (_tracker != null)
-					_tracker.Dispose();
+				_tracker?.Dispose();
 
 				_tracker = value;
 			}
@@ -89,8 +88,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 			set
 			{
-				if (Control != null)
-					Control.DetailTitle = value;
+				Control?.DetailTitle = value;
 			}
 		}
 
@@ -115,8 +113,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 			set
 			{
-				if (Control != null)
-					Control.DetailTitleIcon = value;
+				Control?.DetailTitleIcon = value;
 			}
 		}
 
@@ -125,8 +122,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			get => Control?.DetailTitleView;
 			set
 			{
-				if (Control != null)
-					Control.DetailTitleView = value;
+				Control?.DetailTitleView = value;
 			}
 		}
 
@@ -156,8 +152,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 		protected virtual void OnElementChanged(ElementChangedEventArgs<FlyoutPage> e)
 		{
-			if (e.OldElement != null)
-				e.OldElement.PropertyChanged -= OnElementPropertyChanged;
+			e.OldElement?.PropertyChanged -= OnElementPropertyChanged;
 
 			if (e.NewElement != null)
 			{
