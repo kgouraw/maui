@@ -68,10 +68,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			if (Element == null || availableSize.Width * availableSize.Height == 0)
 				return new WSize(0, 0);
 
-			if (Control != null)
-			{
-				Control.Measure(availableSize);
-			}
+			Control?.Measure(availableSize);
 
 			var mauiContext = Element?.Handler?.MauiContext;
 			var minimumSize = MinimumSize();
@@ -99,10 +96,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 		protected override WSize ArrangeOverride(global::Windows.Foundation.Size finalSize)
 		{
 			var myRect = new WRect(0, 0, finalSize.Width, finalSize.Height);
-			if (Control != null)
-			{
-				Control.Arrange(myRect);
-			}
+			Control?.Arrange(myRect);
 
 			var mauiContext = Element?.Handler?.MauiContext;
 			if (Element is not IVisualTreeElement vte || mauiContext == null)

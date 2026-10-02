@@ -42,14 +42,12 @@ namespace Microsoft.Maui.Controls.Platform
 
 		void ToolbarItemChanged(ToolbarItem oldItem, ToolbarItem newItem)
 		{
-			if (oldItem != null)
-				oldItem.PropertyChanged -= ToolbarItemPropertyChanged;
+			oldItem?.PropertyChanged -= ToolbarItemPropertyChanged;
 
 			// TODO MAUI
 			this.SetAutomationProperties(newItem, null, defaultName: newItem?.Text);
 
-			if (newItem != null)
-				newItem.PropertyChanged += ToolbarItemPropertyChanged;
+			newItem?.PropertyChanged += ToolbarItemPropertyChanged;
 
 			void ToolbarItemPropertyChanged(object sender, PropertyChangedEventArgs e)
 			{

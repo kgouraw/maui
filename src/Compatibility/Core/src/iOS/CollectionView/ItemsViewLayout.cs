@@ -68,10 +68,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 			if (disposing)
 			{
-				if (_itemsLayout != null)
-				{
-					_itemsLayout.PropertyChanged -= LayoutOnPropertyChanged;
-				}
+				_itemsLayout?.PropertyChanged -= LayoutOnPropertyChanged;
 			}
 
 			base.Dispose(disposing);

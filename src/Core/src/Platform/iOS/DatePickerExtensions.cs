@@ -108,10 +108,7 @@ namespace Microsoft.Maui.Platform
 
 		public static void UpdateMinimumDate(this UIDatePicker platformDatePicker, IDatePicker datePicker)
 		{
-			if (platformDatePicker != null)
-			{
-				platformDatePicker.MinimumDate = datePicker.MinimumDate.ToNSDate();
-			}
+			platformDatePicker?.MinimumDate = datePicker.MinimumDate.ToNSDate();
 		}
 
 		public static void UpdateMaximumDate(this MauiDatePicker platformDatePicker, IDatePicker datePicker)
@@ -126,10 +123,7 @@ namespace Microsoft.Maui.Platform
 
 		public static void UpdateMaximumDate(this UIDatePicker platformDatePicker, IDatePicker datePicker)
 		{
-			if (platformDatePicker != null)
-			{
-				platformDatePicker.MaximumDate = datePicker.MaximumDate.ToNSDate();
-			}
+			platformDatePicker?.MaximumDate = datePicker.MaximumDate.ToNSDate();
 		}
 
 		public static void UpdateTextAlignment(this MauiDatePicker nativeDatePicker, IDatePicker datePicker)
