@@ -91,11 +91,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.MacOS
 				}
 
 				SetElement(_element, null);
-				if (Renderer != null)
-				{
-					Renderer.ElementChanged -= OnRendererElementChanged;
-					Renderer = null;
-				}
+				Renderer?.ElementChanged -= OnRendererElementChanged;
+				Renderer = null;
 			}
 
 			_isDisposed = true;

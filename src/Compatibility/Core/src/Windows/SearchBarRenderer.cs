@@ -101,12 +101,9 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			_queryTextBox = Control.GetFirstDescendant<FormsTextBox>();
 			_cancelButton = _queryTextBox?.GetFirstDescendant<FormsCancelButton>();
 
-			if (_cancelButton != null)
-			{
-				// The Cancel button's content won't be loaded right away (because the default Visibility is Collapsed)
-				// So we need to wait until it's ready, then force an update of the button color
-				_cancelButton.ReadyChanged += (o, args) => UpdateCancelButtonColor();
-			}
+			// The Cancel button's content won't be loaded right away (because the default Visibility is Collapsed)
+			// So we need to wait until it's ready, then force an update of the button color
+			_cancelButton?.ReadyChanged += (o, args) => UpdateCancelButtonColor();
 
 			UpdateHorizontalTextAlignment();
 			UpdateVerticalTextAlignment();
@@ -121,8 +118,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 			// If the Forms VisualStateManager is in play or the user wants to disable the Forms legacy
 			// color stuff, then the underlying textbox should just use the Forms VSM states
-			if (_queryTextBox != null)
-				_queryTextBox.UseFormsVsm = Element.HasVisualStateGroups()
+			_queryTextBox?.UseFormsVsm = Element.HasVisualStateGroups()
 								|| !Element.OnThisPlatform().GetIsLegacyColorModeEnabled();
 		}
 

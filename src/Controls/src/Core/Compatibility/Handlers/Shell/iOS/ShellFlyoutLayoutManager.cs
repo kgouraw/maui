@@ -154,13 +154,11 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				if (_headerView == value)
 					return;
 
-				if (_headerView is not null)
-					_headerView.HeaderSizeChanged -= OnHeaderViewMeasureChanged;
+				_headerView?.HeaderSizeChanged -= OnHeaderViewMeasureChanged;
 
 				_headerView = value;
 
-				if (_headerView is not null)
-					_headerView.HeaderSizeChanged += OnHeaderViewMeasureChanged;
+				_headerView?.HeaderSizeChanged += OnHeaderViewMeasureChanged;
 
 				UpdateHeaderSize();
 			}

@@ -23,10 +23,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				oldListViewBase.SelectionChanged -= NativeSelectionChanged;
 			}
 
-			if (ItemsView != null)
-			{
-				ItemsView.SelectionChanged -= FormsSelectionChanged;
-			}
+			ItemsView?.SelectionChanged -= FormsSelectionChanged;
 
 			base.TearDownOldElement(oldElement);
 		}
@@ -40,10 +37,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				return;
 			}
 
-			if (ItemsView != null)
-			{
-				ItemsView.SelectionChanged += FormsSelectionChanged;
-			}
+			ItemsView?.SelectionChanged += FormsSelectionChanged;
 
 			var newListViewBase = ListViewBase;
 
