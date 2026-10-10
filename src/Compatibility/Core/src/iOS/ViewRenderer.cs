@@ -134,8 +134,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.MacOS
 		{
 			base.OnElementChanged(e);
 
-			if (e.OldElement != null)
-				e.OldElement.FocusChangeRequested -= ViewOnFocusChangeRequested;
+			e.OldElement?.FocusChangeRequested -= ViewOnFocusChangeRequested;
 
 			if (e.NewElement != null)
 			{

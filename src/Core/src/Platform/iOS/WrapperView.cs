@@ -63,8 +63,7 @@ namespace Microsoft.Maui.Platform
 
 				_maskLayer = value;
 
-				if (layer is not null)
-					layer.Mask = value;
+				layer?.Mask = value;
 			}
 		}
 
@@ -80,8 +79,7 @@ namespace Microsoft.Maui.Platform
 
 				_backgroundMaskLayer = value;
 
-				if (backgroundLayer is not null)
-					backgroundLayer.Mask = value;
+				backgroundLayer?.Mask = value;
 			}
 		}
 
@@ -113,17 +111,13 @@ namespace Microsoft.Maui.Platform
 
 			child.Frame = Bounds;
 
-			if (MaskLayer is not null)
-				MaskLayer.Frame = Bounds;
+			MaskLayer?.Frame = Bounds;
 
-			if (BackgroundMaskLayer is not null)
-				BackgroundMaskLayer.Frame = Bounds;
+			BackgroundMaskLayer?.Frame = Bounds;
 
-			if (ShadowLayer is not null)
-				ShadowLayer.Frame = Bounds;
+			ShadowLayer?.Frame = Bounds;
 
-			if (_borderView is not null)
-				_borderView.Frame = Bounds;
+			_borderView?.Frame = Bounds;
 
 			SetClip();
 			SetShadow();
@@ -213,7 +207,7 @@ namespace Microsoft.Maui.Platform
 
 				if (child is UIImageView || (child is UIButton imageButton && imageButton.ImageView?.Image is not null && imageButton.CurrentTitle is null))
 				{
-					if(CrossPlatformLayout is not null)
+					if (CrossPlatformLayout is not null)
 					{
 						returnSize = CrossPlatformLayout.CrossPlatformMeasure(widthConstraint, heightConstraint);
 					}
@@ -342,7 +336,7 @@ namespace Microsoft.Maui.Platform
 			_borderView.UpdateMauiCALayer(Border);
 		}
 
-		CALayer? GetLayer()
+		static CALayer? GetLayer()
 		{
 			var sublayers = Layer?.Sublayers;
 			if (sublayers is null)
@@ -355,7 +349,7 @@ namespace Microsoft.Maui.Platform
 			return Layer;
 		}
 
-		CALayer? GetBackgroundLayer()
+		static CALayer? GetBackgroundLayer()
 		{
 			var sublayers = Layer?.Sublayers;
 			if (sublayers is null)

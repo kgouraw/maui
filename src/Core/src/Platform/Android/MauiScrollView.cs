@@ -112,7 +112,7 @@ namespace Microsoft.Maui.Platform
 				}
 				// If the user has changed between horiztonal and both we want to request a new layout
 				// so the Horizontal Layout can be adjusted to satisfy the new orientation.
-				else if(orientationChanged)
+				else if (orientationChanged)
 				{
 					PlatformInterop.RequestLayoutIfNeeded(this);
 				}
@@ -122,8 +122,7 @@ namespace Microsoft.Maui.Platform
 				if (_content != null && _content.Parent != this)
 				{
 					_content.RemoveFromParent();
-					if (_hScrollView != null)
-						_hScrollView.RemoveFromParent();
+					_hScrollView?.RemoveFromParent();
 					AddView(_content);
 				}
 			}
@@ -209,7 +208,7 @@ namespace Microsoft.Maui.Platform
 					MeasureSpec.MakeMeasureSpec(hScrollViewHeight, MeasureSpecMode.Exactly));
 			}
 		}
-		
+
 		protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
 		{
 			base.OnLayout(changed, left, top, right, bottom);
