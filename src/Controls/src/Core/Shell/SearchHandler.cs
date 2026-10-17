@@ -668,10 +668,7 @@ namespace Microsoft.Maui.Controls
 
 		void OnClearPlaceholderCommandChanged(ICommand oldCommand, ICommand newCommand)
 		{
-			if (oldCommand != null)
-			{
-				oldCommand.CanExecuteChanged -= ClearPlaceholderCanExecuteChanged;
-			}
+			oldCommand?.CanExecuteChanged -= ClearPlaceholderCanExecuteChanged;
 
 			if (newCommand != null)
 			{
@@ -692,10 +689,7 @@ namespace Microsoft.Maui.Controls
 
 		void OnCommandChanged(ICommand oldCommand, ICommand newCommand)
 		{
-			if (oldCommand != null)
-			{
-				oldCommand.CanExecuteChanged -= CanExecuteChanged;
-			}
+			oldCommand?.CanExecuteChanged -= CanExecuteChanged;
 
 			if (newCommand != null)
 			{

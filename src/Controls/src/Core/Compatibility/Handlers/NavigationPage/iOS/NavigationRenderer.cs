@@ -11,6 +11,7 @@ using Microsoft.Maui.Controls.Platform;
 using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Platform;
 using ObjCRuntime;
 using UIKit;
 using static Microsoft.Maui.Controls.Compatibility.Platform.iOS.AccessibilityExtensions;
@@ -21,7 +22,6 @@ using PageUIStatusBarAnimation = Microsoft.Maui.Controls.PlatformConfiguration.i
 using PointF = CoreGraphics.CGPoint;
 using RectangleF = CoreGraphics.CGRect;
 using SizeF = CoreGraphics.CGSize;
-using Microsoft.Maui.Platform;
 
 namespace Microsoft.Maui.Controls.Handlers.Compatibility
 {
@@ -449,8 +449,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				CompletePendingNavigation(false);
 			};
 
-			if (NavigationDelegate is not null)
-				NavigationDelegate.WaitingForNavigationToFinish = true;
+			NavigationDelegate?.WaitingForNavigationToFinish = true;
 
 			_removeLifecycleEvents = new ActionDisposable(() =>
 			{
@@ -460,8 +459,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				// on the ParentingViewController.
 				parentViewController.Appearing -= appearing;
 				parentViewController.Disappearing -= disappearing;
-				if (NavigationDelegate is not null)
-					NavigationDelegate.WaitingForNavigationToFinish = false;
+				NavigationDelegate?.WaitingForNavigationToFinish = false;
 			});
 
 			parentViewController.Appearing += appearing;
@@ -737,7 +735,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				}
 				else
 				{
-					if(barBackgroundColor?.Alpha < 1f)
+					if (barBackgroundColor?.Alpha < 1f)
 						navigationBarAppearance.ConfigureWithTransparentBackground();
 					else
 						navigationBarAppearance.ConfigureWithOpaqueBackground();
@@ -758,7 +756,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			}
 			else
 			{
-				if(barBackgroundColor?.Alpha == 0f)
+				if (barBackgroundColor?.Alpha == 0f)
 				{
 					NavigationBar.SetTransparentNavigationBar();
 				}
@@ -1105,7 +1103,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 
 					if (r.Element is NavigationPage np && !_finishedWithInitialNavigation)
 					{
-						_finishedWithInitialNavigation = true;						
+						_finishedWithInitialNavigation = true;
 						np.SendNavigatedFromHandler(null, NavigationType.Push);
 					}
 
@@ -1149,10 +1147,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 					if (child == value)
 						return;
 
-					if (child is not null)
-					{
-						child.PropertyChanged -= HandleChildPropertyChanged;
-					}
+					child?.PropertyChanged -= HandleChildPropertyChanged;
 
 					if (value is not null)
 					{
@@ -1221,7 +1216,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 					!n._disposed &&
 					!n._navigating
 					)
-				{	
+				{
 					var vc = ChildViewControllers[^1];
 
 					if (vc is null)
@@ -1244,10 +1239,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 
 				var childView = (Child?.Handler as IPlatformViewHandler)?.ViewController?.View;
 
-				if (childView is not null)
-				{
-					childView.Frame = View.Bounds;
-				}
+				childView?.Frame = View.Bounds;
 			}
 
 			public override void ViewDidLayoutSubviews()
@@ -1314,7 +1306,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				{
 					if (dispose)
 						NavigationItem.TitleView.Dispose();
-						
+
 					NavigationItem.TitleView = null;
 				}
 
@@ -1647,8 +1639,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 						(primaries = primaries ?? new List<UIBarButtonItem>()).Add(item.ToUIBarButtonItem());
 				}
 
-				if (primaries != null)
-					primaries.Reverse();
+				primaries?.Reverse();
 				NavigationItem.SetRightBarButtonItems(primaries == null ? Array.Empty<UIBarButtonItem>() : primaries.ToArray(), false);
 				ToolbarItems = secondaries == null ? Array.Empty<UIBarButtonItem>() : secondaries.ToArray();
 
@@ -1723,6 +1714,11 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				}
 				base.DidMoveToParentViewController(parent);
 			}
+		}
+
+		public override UIViewController ChildViewControllerForStatusBarHidden()
+		{
+			return (Current.Handler as IPlatformViewHandler)?.ViewController;
 		}
 
 		public override UIViewController ChildViewControllerForStatusBarHidden()
@@ -1951,7 +1947,8 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 								value.Width = (value.X - xSpace) + value.Width;
 								value.X = xSpace;
 							}
-						};
+						}
+						;
 
 						value.Height = ToolbarHeight;
 					}
@@ -1964,8 +1961,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			{
 				set
 				{
-					if (_icon != null)
-						_icon.RemoveFromSuperview();
+					_icon?.RemoveFromSuperview();
 
 					_icon = value;
 
@@ -1989,8 +1985,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 
 				double height = Math.Min(toolbarHeight, Bounds.Height);
 
-				if (_icon != null)
-					_icon.Frame = new RectangleF(0, 0, IconWidth, Math.Min(toolbarHeight, IconHeight));
+				_icon?.Frame = new RectangleF(0, 0, IconWidth, Math.Min(toolbarHeight, IconHeight));
 
 				if (_child?.VirtualView != null)
 				{
@@ -2023,10 +2018,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 						_child = null;
 					}
 
-					if (_view is not null)
-					{
-						_view.ParentSet -= OnTitleViewParentSet;
-					}
+					_view?.ParentSet -= OnTitleViewParentSet;
 
 					_view = null;
 
