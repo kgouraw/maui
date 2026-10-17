@@ -33,10 +33,7 @@ namespace Microsoft.Maui.Handlers
 			var windowRootContentManager = MauiContext
 				?.GetNavigationRootManager();
 
-			if (windowRootContentManager is not null)
-			{
-				windowRootContentManager.OnApplyTemplateFinished += WindowRootContentManagerOnApplyTemplateFinished;
-			}
+			windowRootContentManager?.OnApplyTemplateFinished += WindowRootContentManagerOnApplyTemplateFinished;
 		}
 
 		void WindowRootContentManagerOnApplyTemplateFinished(object? sender, EventArgs e)
@@ -62,8 +59,7 @@ namespace Microsoft.Maui.Handlers
 			}
 
 			var appWindow = platformView.GetAppWindow();
-			if (appWindow is not null)
-				appWindow.Changed -= OnWindowChanged;
+			appWindow?.Changed -= OnWindowChanged;
 
 			base.DisconnectHandler(platformView);
 		}
@@ -89,8 +85,7 @@ namespace Microsoft.Maui.Handlers
 				container.AddPage(windowManager.RootView);
 			}
 
-			if (window.VisualDiagnosticsOverlay != null)
-				window.VisualDiagnosticsOverlay.Initialize();
+			window.VisualDiagnosticsOverlay?.Initialize();
 		}
 
 		public static void MapX(IWindowHandler handler, IWindow view) =>

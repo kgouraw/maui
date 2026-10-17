@@ -62,7 +62,8 @@ internal static class LayoutFactory2
 					scrollDirection == UICollectionViewScrollDirection.Vertical
 						? NSRectAlignment.Top
 						: NSRectAlignment.Leading));
-			};
+			}
+			;
 
 			if (layoutHeaderFooterInfo.HasFooter)
 			{
@@ -180,7 +181,7 @@ internal static class LayoutFactory2
 
 			section.BoundarySupplementaryItems = CreateSupplementaryItems(
 				groupingInfo,
-				headerFooterInfo,   
+				headerFooterInfo,
 				scrollDirection,
 				groupWidth,
 				groupHeight);

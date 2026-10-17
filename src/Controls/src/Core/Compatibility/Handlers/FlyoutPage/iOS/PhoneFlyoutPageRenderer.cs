@@ -552,8 +552,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			if (OperatingSystem.IsIOSVersionAtLeast(11))
 				SetNeedsUpdateOfHomeIndicatorAutoHidden();
 
-			if (detailRenderer.ViewController.View.Superview != null)
-				detailRenderer.ViewController.View.Superview.BackgroundColor = Microsoft.Maui.Graphics.Colors.Black.ToPlatform();
+			detailRenderer.ViewController.View.Superview?.BackgroundColor = Microsoft.Maui.Graphics.Colors.Black.ToPlatform();
 
 			ToggleAccessibilityElementsHidden();
 			UpdatePageSpecifics();
@@ -607,12 +606,10 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 		void ToggleAccessibilityElementsHidden()
 		{
 			var flyoutView = _flyoutController?.View;
-			if (flyoutView != null)
-				flyoutView.AccessibilityElementsHidden = !Presented;
+			flyoutView?.AccessibilityElementsHidden = !Presented;
 
 			var detailView = _detailController?.View;
-			if (detailView != null)
-				detailView.AccessibilityElementsHidden = Presented;
+			detailView?.AccessibilityElementsHidden = Presented;
 		}
 
 		void UpdatePanGesture()

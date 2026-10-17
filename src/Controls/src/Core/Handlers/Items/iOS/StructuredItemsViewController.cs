@@ -36,6 +36,8 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 
 			if (disposing)
 			{
+
+<<<<<<< TODO: Unmerged change from project 'Controls.Core(net9.0-maccatalyst18.0)', Before:
 				if (_headerViewFormsElement != null)
 				{
 					_headerViewFormsElement.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
@@ -45,6 +47,14 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 				{
 					_footerViewFormsElement.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
 				}
+=======
+				_headerViewFormsElement?.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
+
+				_footerViewFormsElement?.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
+>>>>>>> After
+				_headerViewFormsElement?.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
+
+				_footerViewFormsElement?.MeasureInvalidated -= OnFormsElementMeasureInvalidated;
 
 				if (_headerUIView is MauiView hv)
 				{
@@ -128,7 +138,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 				ref _headerUIView, ref _headerViewFormsElement);
 			UpdateHeaderFooterPosition();
 
-			if(_headerUIView is MauiView mv)
+			if (_headerUIView is MauiView mv)
 			{
 				mv.LayoutChanged += HeaderViewLayoutChanged;
 			}

@@ -95,14 +95,12 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			{
 				contextCell.Update(tableView, cell, platformCell);
 				var viewTableCell = contextCell.ContentCell as ViewCellRenderer.ViewTableCell;
-				if (viewTableCell != null)
-					viewTableCell.SupressSeparator = tableView.SeparatorStyle == UITableViewCellSeparatorStyle.None;
+				viewTableCell?.SupressSeparator = tableView.SeparatorStyle == UITableViewCellSeparatorStyle.None;
 				platformCell = contextCell;
 			}
 
 			// Because the layer was hidden we need to layout the cell by hand
-			if (cellWithContent != null)
-				cellWithContent.LayoutSubviews();
+			cellWithContent?.LayoutSubviews();
 
 			return platformCell;
 		}
