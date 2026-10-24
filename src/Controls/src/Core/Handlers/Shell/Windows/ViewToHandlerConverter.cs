@@ -44,8 +44,7 @@ namespace Microsoft.Maui.Controls.Platform
 			{
 				_view?.Cleanup();
 
-				if (_view != null)
-					_view.MeasureInvalidated -= OnMeasureInvalidated;
+				_view?.MeasureInvalidated -= OnMeasureInvalidated;
 			}
 
 			public WrapperControl(View view)

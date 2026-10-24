@@ -353,8 +353,7 @@ namespace Microsoft.Maui.Foldable
 		{
 			if (context == null)
 			{
-				if (DefaultHingeSensor != null)
-					DefaultHingeSensor.OnSensorChanged -= DefaultHingeSensorOnSensorChanged;
+				DefaultHingeSensor?.OnSensorChanged -= DefaultHingeSensorOnSensorChanged;
 
 				_singleUseHingeSensor = null;
 				DefaultHingeSensor = null;
@@ -401,8 +400,7 @@ namespace Microsoft.Maui.Foldable
 				_gettingHingeAngle = null;
 			}
 
-			if (toSet != null)
-				toSet.SetResult(hingeAngle);
+			toSet?.SetResult(hingeAngle);
 		}
 	}
 

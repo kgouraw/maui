@@ -28,8 +28,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 			if (disposing)
 			{
-				if (Control != null)
-					Control.ValueChanged -= OnValueChanged;
+				Control?.ValueChanged -= OnValueChanged;
 			}
 
 			base.Dispose(disposing);
