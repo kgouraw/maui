@@ -310,8 +310,7 @@ class LoadImageSourceAnimationPage : ContentPage
 #pragma warning disable CS0612 // Type or member is obsolete
 					Device.BeginInvokeOnMainThread(() =>
 					{
-						if (loadButton != null)
-							loadButton.IsEnabled = true;
+						loadButton?.IsEnabled = true;
 
 						if (loadingIndicator != null)
 						{
@@ -319,13 +318,9 @@ class LoadImageSourceAnimationPage : ContentPage
 							loadingIndicator.IsRunning = false;
 						}
 
-						if (imageSource != null)
-							imageSource.IsEnabled = true;
+						imageSource?.IsEnabled = true;
 
-						if (animationImage != null)
-						{
-							animationImage.IsAnimationPlaying = true;
-						}
+						animationImage?.IsAnimationPlaying = true;
 					});
 #pragma warning restore CS0612 // Type or member is obsolete
 #pragma warning restore CS0618 // Type or member is obsolete

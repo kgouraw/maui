@@ -43,7 +43,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				};
 			}
 		}
-			
+
 
 		#region IShellContext
 
@@ -139,8 +139,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 		public override void ViewDidLayoutSubviews()
 		{
 			base.ViewDidLayoutSubviews();
-			if (_currentShellItemRenderer != null)
-				_currentShellItemRenderer.ViewController.View.Frame = View.Bounds;
+			_currentShellItemRenderer?.ViewController.View.Frame = View.Bounds;
 
 			SetElementSize(new Size(View.Bounds.Width, View.Bounds.Height));
 		}

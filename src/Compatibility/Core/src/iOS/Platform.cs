@@ -30,8 +30,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 				}
 #endif
 				var view = bindable as VisualElement;
-				if (view != null)
-					view.IsPlatformEnabled = newvalue != null;
+				view?.IsPlatformEnabled = newvalue != null;
 
 				if (bindable is IView mauiView)
 				{

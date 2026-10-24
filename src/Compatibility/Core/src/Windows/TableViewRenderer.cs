@@ -23,10 +23,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 		protected override void OnElementChanged(ElementChangedEventArgs<TableView> e)
 		{
-			if (e.OldElement != null)
-			{
-				e.OldElement.ModelChanged -= OnModelChanged;
-			}
+			e.OldElement?.ModelChanged -= OnModelChanged;
 
 			if (e.NewElement != null)
 			{
@@ -59,10 +56,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			if (disposing && !_disposed)
 			{
 				_disposed = true;
-				if (Control != null)
-				{
-					Control.SelectionChanged -= OnSelectionChanged;
-				}
+				Control?.SelectionChanged -= OnSelectionChanged;
 			}
 			base.Dispose(disposing);
 		}

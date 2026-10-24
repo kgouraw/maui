@@ -9,10 +9,7 @@ namespace Microsoft.Maui.Handlers
 	{
 		partial void ConnectingHandler(PlatformView? platformView)
 		{
-			if (platformView != null)
-			{
-				platformView.FocusChange += OnPlatformViewFocusChange;
-			}
+			platformView?.FocusChange += OnPlatformViewFocusChange;
 		}
 
 		partial void DisconnectingHandler(PlatformView platformView)
@@ -191,10 +188,7 @@ namespace Microsoft.Maui.Handlers
 
 		void OnPlatformViewFocusChange(object? sender, PlatformView.FocusChangeEventArgs e)
 		{
-			if (VirtualView != null)
-			{
-				VirtualView.IsFocused = e.HasFocus;
-			}
+			VirtualView?.IsFocused = e.HasFocus;
 		}
 	}
 }

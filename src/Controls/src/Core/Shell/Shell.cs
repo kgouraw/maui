@@ -122,7 +122,7 @@ namespace Microsoft.Maui.Controls
 					.FindParentOfType<Shell>()
 					?.SendFlyoutItemsChanged();
 
-			if(bindable is BaseShellItem baseShellItem && baseShellItem.FlyoutItemIsVisible != (bool)newValue)
+			if (bindable is BaseShellItem baseShellItem && baseShellItem.FlyoutItemIsVisible != (bool)newValue)
 				baseShellItem.FlyoutItemIsVisible = (bool)newValue;
 		}
 
@@ -971,7 +971,7 @@ namespace Microsoft.Maui.Controls
 					{
 						if (window.IsActivated)
 						{
-							if(currentShell is not null)
+							if (currentShell is not null)
 							{
 								currentShell = null;
 								break;
@@ -982,7 +982,7 @@ namespace Microsoft.Maui.Controls
 
 						if (returnIfThereIsJustOneShell is not null)
 						{
-							tooManyShells = true;					
+							tooManyShells = true;
 						}
 					}
 				}
@@ -992,7 +992,7 @@ namespace Microsoft.Maui.Controls
 					return currentShell;
 				}
 
-				if (!tooManyShells &&  returnIfThereIsJustOneShell is not null)
+				if (!tooManyShells && returnIfThereIsJustOneShell is not null)
 				{
 					return returnIfThereIsJustOneShell;
 				}
@@ -1563,12 +1563,11 @@ namespace Microsoft.Maui.Controls
 			Navigated?.Invoke(this, args);
 			OnNavigated(args);
 
-			if (_previousPage != null)
-				_previousPage.PropertyChanged -= OnCurrentPagePropertyChanged;
+			_previousPage?.PropertyChanged -= OnCurrentPagePropertyChanged;
 
 			NavigationType navigationType = NavigationType.PageSwap;
 
-			switch(args.Source)
+			switch (args.Source)
 			{
 				case ShellNavigationSource.Pop:
 					navigationType = NavigationType.Pop;
@@ -1597,8 +1596,7 @@ namespace Microsoft.Maui.Controls
 			CurrentPage?.SendNavigatedTo(new NavigatedToEventArgs(_previousPage));
 			_previousPage = null;
 
-			if (CurrentPage != null)
-				CurrentPage.PropertyChanged += OnCurrentPagePropertyChanged;
+			CurrentPage?.PropertyChanged += OnCurrentPagePropertyChanged;
 
 			CurrentItem?.Handler?.UpdateValue(Shell.TabBarIsVisibleProperty.PropertyName);
 		}
@@ -1640,9 +1638,9 @@ namespace Microsoft.Maui.Controls
 			{
 				oldShellItem.SendDisappearing();
 
-				foreach(var section in oldShellItem.Items)
+				foreach (var section in oldShellItem.Items)
 				{
-					foreach(var content in section.Items)
+					foreach (var content in section.Items)
 					{
 						content.EvaluateDisconnect();
 					}
