@@ -64,10 +64,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 			if (disposing)
 			{
-				if (UIPager != null)
-				{
-					UIPager.ValueChanged -= UIPagerValueChanged;
-				}
+				UIPager?.ValueChanged -= UIPagerValueChanged;
 			}
 
 			base.Dispose(disposing);
@@ -100,10 +97,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 		protected override UIView CreateNativeControl()
 		{
-			if (UIPager != null)
-			{
-				UIPager.ValueChanged -= UIPagerValueChanged;
-			}
+			UIPager?.ValueChanged -= UIPagerValueChanged;
 
 			var uiPager = new FormsPageControl
 			{

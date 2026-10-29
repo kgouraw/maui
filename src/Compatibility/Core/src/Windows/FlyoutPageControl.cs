@@ -285,12 +285,10 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				return;
 
 			var paneToggle = GetTemplateChild("PaneTogglePane") as Microsoft.UI.Xaml.Controls.Button;
-			if (paneToggle != null)
-				paneToggle.Click += OnToggleClicked;
+			paneToggle?.Click += OnToggleClicked;
 
 			var contentToggle = GetTemplateChild("ContentTogglePane") as Microsoft.UI.Xaml.Controls.Button;
-			if (contentToggle != null)
-				contentToggle.Click += OnToggleClicked;
+			contentToggle?.Click += OnToggleClicked;
 
 			_flyoutPresenter = GetTemplateChild(FlyoutPresenterTemplateName) as FrameworkElement;
 			_detailPresenter = GetTemplateChild("DetailPresenter") as FrameworkElement;
@@ -302,8 +300,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 			UpdateMode();
 
-			if (_commandBarTcs != null)
-				_commandBarTcs.SetResult(_commandBar);
+			_commandBarTcs?.SetResult(_commandBar);
 
 			_titleViewManager = new TitleViewManager(this);
 		}
@@ -380,10 +377,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 		void UpdateToolbarDynamicOverflowEnabled()
 		{
-			if (_commandBar != null)
-			{
-				_commandBar.IsDynamicOverflowEnabled = ToolbarDynamicOverflowEnabled;
-			}
+			_commandBar?.IsDynamicOverflowEnabled = ToolbarDynamicOverflowEnabled;
 		}
 
 	}
