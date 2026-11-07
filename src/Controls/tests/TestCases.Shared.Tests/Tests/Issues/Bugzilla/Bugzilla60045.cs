@@ -3,6 +3,7 @@ using UITest.Appium;
 using UITest.Core;
 
 namespace Microsoft.Maui.TestCases.Tests.Issues;
+
 public class Bugzilla60045 : _IssuesUITest
 {
 	public Bugzilla60045(TestDevice testDevice) : base(testDevice)
