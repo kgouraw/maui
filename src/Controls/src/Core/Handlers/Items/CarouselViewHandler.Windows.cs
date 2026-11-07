@@ -23,7 +23,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 		ScrollViewer _scrollViewer;
 		WScrollBarVisibility? _horizontalScrollBarVisibilityWithoutLoop;
 		WScrollBarVisibility? _verticalScrollBarVisibilityWithoutLoop;
-		Size _currentSize; 
+		Size _currentSize;
 		bool _isCarouselViewReady;
 		NotifyCollectionChangedEventHandler _collectionChanged;
 		readonly WeakNotifyCollectionChangedProxy _proxy = new();
@@ -47,8 +47,14 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 
 		protected override void DisconnectHandler(ListViewBase platformView)
 		{
+
+<<<<<<< TODO: Unmerged change from project 'Controls.Core(net9.0-windows10.0.20348.0)', Before:
 			if (ItemsView != null)
 				ItemsView.Scrolled -= CarouselScrolled;
+=======
+			ItemsView?.Scrolled -= CarouselScrolled;
+>>>>>>> After
+			ItemsView?.Scrolled -= CarouselScrolled;
 
 			if (platformView != null)
 			{
@@ -195,7 +201,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 			{
 				handler.UpdatePosition();
 			}
-			
+
 		}
 
 		public static void MapIsBounceEnabled(CarouselViewHandler handler, CarouselView carouselView)
@@ -223,8 +229,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 
 		void UpdateIsBounceEnabled()
 		{
-			if (_scrollViewer != null)
-				_scrollViewer.IsScrollInertiaEnabled = ItemsView.IsBounceEnabled;
+			_scrollViewer?.IsScrollInertiaEnabled = ItemsView.IsBounceEnabled;
 		}
 
 		void UpdateIsSwipeEnabled()

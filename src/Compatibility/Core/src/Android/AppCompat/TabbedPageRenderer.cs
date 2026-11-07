@@ -198,11 +198,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android.AppCompat
 					_bottomNavigationView = null;
 				}
 
-				if (_relativeLayout != null)
-				{
-					_relativeLayout.Dispose();
-					_relativeLayout = null;
-				}
+				_relativeLayout?.Dispose();
+				_relativeLayout = null;
 
 				if (Element != null)
 				{
@@ -555,17 +552,11 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android.AppCompat
 
 		void ScrollToCurrentPage()
 		{
-			if (Platform != null)
-			{
-				Platform.NavAnimationInProgress = true;
-			}
+			Platform?.NavAnimationInProgress = true;
 
 			_viewPager.SetCurrentItem(Element.Children.IndexOf(Element.CurrentPage), Element.OnThisPlatform().IsSmoothScrollEnabled());
 
-			if (Platform != null)
-			{
-				Platform.NavAnimationInProgress = false;
-			}
+			Platform?.NavAnimationInProgress = false;
 		}
 
 		void UpdateIgnoreContainerAreas()

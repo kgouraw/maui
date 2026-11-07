@@ -134,21 +134,18 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				}
 			}
 
-			if (_displayedPage != null)
-				_displayedPage.PropertyChanged -= OnDisplayedPagePropertyChanged;
+			_displayedPage?.PropertyChanged -= OnDisplayedPagePropertyChanged;
 
 			if (_currentSection != null)
 				((IShellSectionController)_currentSection).RemoveDisplayedPageObserver(this);
 
 
-			if (ShellItem != null)
-				ShellItem.PropertyChanged -= OnElementPropertyChanged;
+			ShellItem?.PropertyChanged -= OnElementPropertyChanged;
 
 			if (_context?.Shell is IShellController shellController)
 				shellController.RemoveAppearanceObserver(this);
 
-			if (ShellItemController != null)
-				ShellItemController.ItemsCollectionChanged -= OnItemsCollectionChanged;
+			ShellItemController?.ItemsCollectionChanged -= OnItemsCollectionChanged;
 		}
 
 		protected override void Dispose(bool disposing)
@@ -380,8 +377,7 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 			if (page == _displayedPage)
 				return;
 
-			if (_displayedPage != null)
-				_displayedPage.PropertyChanged -= OnDisplayedPagePropertyChanged;
+			_displayedPage?.PropertyChanged -= OnDisplayedPagePropertyChanged;
 
 			_displayedPage = page;
 
