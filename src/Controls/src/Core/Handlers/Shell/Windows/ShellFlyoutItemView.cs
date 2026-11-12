@@ -64,8 +64,7 @@ namespace Microsoft.Maui.Controls.Platform
 			_shell = element?.FindParentOfType<Shell>();
 			DataTemplate dataTemplate = (_shell as IShellController)?.GetFlyoutItemDataTemplate(bo);
 
-			if (bo != null)
-				bo.PropertyChanged += ShellElementPropertyChanged;
+			bo?.PropertyChanged += ShellElementPropertyChanged;
 
 			if (dataTemplate != null)
 			{

@@ -38,13 +38,13 @@ namespace Microsoft.Maui.Platform
 
 		internal new MauiToolbar? Toolbar
 		{
-			get => base.Toolbar as MauiToolbar;
+			get => MauiNavigationView.Toolbar as MauiToolbar;
 			set
 			{
-				if (base.Toolbar == value)
+				if (MauiNavigationView.Toolbar == value)
 					return;
 
-				base.Toolbar = value;
+				MauiNavigationView.Toolbar = value;
 
 				if (value != null)
 				{
@@ -101,8 +101,8 @@ namespace Microsoft.Maui.Platform
 
 					if (Toolbar != null)
 					{
-						Toolbar.ContentGridMargin = new UI.Xaml.Thickness(0, 0, 4, 0);
-						Toolbar.TextBlockBorderVerticalAlignment = VerticalAlignment.Center;
+						MauiToolbar.ContentGridMargin = new UI.Xaml.Thickness(0, 0, 4, 0);
+						MauiToolbar.TextBlockBorderVerticalAlignment = VerticalAlignment.Center;
 					}
 				}
 				else if (PaneFooter == Toolbar || Header == null)
@@ -121,8 +121,8 @@ namespace Microsoft.Maui.Platform
 
 					if (Toolbar != null)
 					{
-						Toolbar.ContentGridMargin = new UI.Xaml.Thickness(0, 0, 0, 0);
-						Toolbar.TextBlockBorderVerticalAlignment = VerticalAlignment.Top;
+						MauiToolbar.ContentGridMargin = new UI.Xaml.Thickness(0, 0, 0, 0);
+						MauiToolbar.TextBlockBorderVerticalAlignment = VerticalAlignment.Top;
 					}
 				}
 			}
@@ -256,33 +256,33 @@ namespace Microsoft.Maui.Platform
 			var buttonHeight = Math.Max(_appBarTitleHeight, DefaultNavigationBackButtonHeight);
 			var buttonRatio = buttonHeight / DefaultNavigationBackButtonHeight;
 
-			NavigationBackButtonHeight = buttonHeight;
-			NavigationBackButtonWidth = DefaultNavigationBackButtonWidth * buttonRatio;
+			MauiNavigationView.NavigationBackButtonHeight = buttonHeight;
+			MauiNavigationView.NavigationBackButtonWidth = DefaultNavigationBackButtonWidth * buttonRatio;
 
 			var paneToggleHeight = Math.Max(_appBarTitleHeight, DefaultPaneToggleButtonHeight);
 			var paneToggleRatio = paneToggleHeight / DefaultPaneToggleButtonHeight;
 
-			PaneToggleButtonHeight = paneToggleHeight;
-			PaneToggleButtonWidth = DefaultPaneToggleButtonWidth * paneToggleRatio;
+			MauiNavigationView.PaneToggleButtonHeight = paneToggleHeight;
+			MauiNavigationView.PaneToggleButtonWidth = DefaultPaneToggleButtonWidth * paneToggleRatio;
 
 			if (PaneDisplayMode == NavigationViewPaneDisplayMode.LeftMinimal ||
 				PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
 			{
-				NavigationViewButtonHolderGridMargin = new WThickness(0, 0, 0, 0);
-				NavigationViewBackButtonMargin = new WThickness(0, 0, 0, 0);
-				PaneToggleButtonPadding = new WThickness();
+				MauiNavigationView.NavigationViewButtonHolderGridMargin = new WThickness(0, 0, 0, 0);
+				MauiNavigationView.NavigationViewBackButtonMargin = new WThickness(0, 0, 0, 0);
+				MauiNavigationView.PaneToggleButtonPadding = new WThickness();
 			}
 			else if (PaneDisplayMode == NavigationViewPaneDisplayMode.LeftCompact ||
 					PaneDisplayMode == NavigationViewPaneDisplayMode.Left ||
 					DisplayMode == NavigationViewDisplayMode.Compact)
 			{
-				NavigationViewButtonHolderGridMargin = new WThickness(0, 0, 0, 0);
+				MauiNavigationView.NavigationViewButtonHolderGridMargin = new WThickness(0, 0, 0, 0);
 				if (IsPaneToggleButtonVisible)
-					NavigationViewBackButtonMargin = new WThickness(4, 0, 0, 2);
+					MauiNavigationView.NavigationViewBackButtonMargin = new WThickness(4, 0, 0, 2);
 				else
-					NavigationViewBackButtonMargin = new WThickness(4, 0, 0, 0);
+					MauiNavigationView.NavigationViewBackButtonMargin = new WThickness(4, 0, 0, 0);
 
-				PaneToggleButtonPadding = new WThickness(4, 2, 4, 2);
+				MauiNavigationView.PaneToggleButtonPadding = new WThickness(4, 2, 4, 2);
 			}
 
 			UpdatePaneContentGridMargin();
@@ -376,12 +376,12 @@ namespace Microsoft.Maui.Platform
 
 			public double ContentWidth { get; set; }
 
-			FrameworkElement? FlyoutContent =>
+			static FrameworkElement? FlyoutContent =>
 				Children.Count > 0 ? (FrameworkElement?)Children[0] : null;
 
 			protected override Size MeasureOverride(Size availableSize)
 			{
-				if (FlyoutContent == null)
+				if (FlyoutPanel.FlyoutContent == null)
 					return new Size(0, 0);
 
 				if (ContentWidth == 0)
@@ -390,18 +390,18 @@ namespace Microsoft.Maui.Platform
 				if (FlyoutView != null)
 					FlyoutView.Measure(ContentWidth, availableSize.Height);
 				else
-					FlyoutContent.Measure(new Size(ContentWidth, availableSize.Height));
+					FlyoutPanel.FlyoutContent.Measure(new Size(ContentWidth, availableSize.Height));
 
-				return FlyoutContent.DesiredSize;
+				return FlyoutPanel.FlyoutContent.DesiredSize;
 			}
 
 			protected override Size ArrangeOverride(Size finalSize)
 			{
-				if (FlyoutContent == null)
+				if (FlyoutPanel.FlyoutContent == null)
 					return new Size(0, 0);
 
 				if (finalSize.Width * finalSize.Height == 0 &&
-					FlyoutContent.ActualWidth * FlyoutContent.ActualHeight == 0)
+					FlyoutPanel.FlyoutContent.ActualWidth * FlyoutPanel.FlyoutContent.ActualHeight == 0)
 				{
 					return finalSize;
 				}
@@ -409,15 +409,15 @@ namespace Microsoft.Maui.Platform
 				if (FlyoutView != null)
 					FlyoutView.Arrange(new Graphics.Rect(0, 0, finalSize.Width, finalSize.Height));
 				else
-					FlyoutContent.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+					FlyoutPanel.FlyoutContent.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
 
-				return new Size(FlyoutContent.ActualWidth, FlyoutContent.ActualHeight);
+				return new Size(FlyoutPanel.FlyoutContent.ActualWidth, FlyoutPanel.FlyoutContent.ActualHeight);
 			}
 		}
 
 		private protected override void UpdateFlyoutCustomContent()
 		{
-			ReplacePaneMenuItemsWithCustomContent(FlyoutCustomContent as UIElement);
+			ReplacePaneMenuItemsWithCustomContent(MauiNavigationView.FlyoutCustomContent as UIElement);
 		}
 	}
 }

@@ -208,7 +208,7 @@ namespace Microsoft.Maui.Controls.Platform
 
 		public static async Task JumpToItemAsync(ListViewBase list, object targetItem, ScrollToPosition scrollToPosition)
 		{
-			if(!list.IsLoaded)
+			if (!list.IsLoaded)
 			{
 				list.OnLoaded(async () =>
 				{
@@ -250,8 +250,7 @@ namespace Microsoft.Maui.Controls.Platform
 
 			try
 			{
-				if (scrollViewer != null)
-					scrollViewer.ViewChanged += ViewChanged;
+				scrollViewer?.ViewChanged += ViewChanged;
 
 				switch (scrollToPosition)
 				{
@@ -275,8 +274,7 @@ namespace Microsoft.Maui.Controls.Platform
 			}
 			finally
 			{
-				if (scrollViewer != null)
-					scrollViewer.ViewChanged -= ViewChanged;
+				scrollViewer?.ViewChanged -= ViewChanged;
 			}
 		}
 

@@ -35,7 +35,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 
 		[UnconditionalSuppressMessage("Memory", "MEM0002", Justification = "Proven safe in test: MemoryTests.HandlerDoesNotLeak")]
 		Func<UICollectionViewCell> _getPrototype;
-		
+
 		[UnconditionalSuppressMessage("Memory", "MEM0002", Justification = "Proven safe in test: MemoryTests.HandlerDoesNotLeak")]
 		Func<NSIndexPath, UICollectionViewCell> _getPrototypeForIndexPath;
 		CGSize _previousContentSize = CGSize.Empty;
@@ -263,7 +263,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 
 			_previousContentSize = contentSize.Value;
 		}
-		
+
 
 		internal Size? GetSize()
 		{
@@ -756,8 +756,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 			UpdateTemplatedCell(templatedCell, indexPath);
 
 			// Keep this cell around, we can transfer the contents to the actual cell when the UICollectionView creates it
-			if (_measurementCells != null)
-				_measurementCells[ItemsSource[indexPath]] = templatedCell;
+			_measurementCells?[ItemsSource[indexPath]] = templatedCell;
 
 			return templatedCell;
 		}
