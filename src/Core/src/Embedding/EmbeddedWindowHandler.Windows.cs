@@ -25,8 +25,7 @@ internal partial class EmbeddedWindowHandler
 	protected override void DisconnectHandler(PlatformWindow platformView)
 	{
 		var appWindow = platformView.GetAppWindow();
-		if (appWindow is not null)
-			appWindow.Changed -= OnWindowChanged;
+		appWindow?.Changed -= OnWindowChanged;
 
 		base.DisconnectHandler(platformView);
 	}

@@ -64,8 +64,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 		void CleanUp(ScrollView scrollView, ScrollViewer scrollViewer)
 		{
-			if (scrollView != null)
-				scrollView.ScrollToRequested -= OnScrollToRequested;
+			scrollView?.ScrollToRequested -= OnScrollToRequested;
 
 			if (scrollViewer != null)
 			{
@@ -76,8 +75,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				}
 			}
 
-			if (_currentView != null)
-				_currentView.Cleanup();
+			_currentView?.Cleanup();
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<ScrollView> e)
@@ -130,8 +128,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 		void UpdateContent()
 		{
-			if (_currentView != null)
-				_currentView.Cleanup();
+			_currentView?.Cleanup();
 
 			if (Control?.Content is FrameworkElement oldElement)
 			{
@@ -148,7 +145,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			if (_currentView != null)
 				renderer = _currentView.GetOrCreateRenderer();
 
-			Control.Content = renderer != null ? renderer.ContainerElement : null;
+			Control.Content = renderer?.ContainerElement;
 
 			UpdateContentMargins();
 			if (renderer?.Element != null)

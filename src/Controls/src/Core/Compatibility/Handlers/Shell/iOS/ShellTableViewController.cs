@@ -105,11 +105,9 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 
 			if (disposing)
 			{
-				if (ShellController != null)
-					ShellController.FlyoutItemsChanged -= OnFlyoutItemsChanged;
+				ShellController?.FlyoutItemsChanged -= OnFlyoutItemsChanged;
 
-				if (_source != null)
-					_source.ScrolledEvent -= OnScrolled;
+				_source?.ScrolledEvent -= OnScrolled;
 
 				ShellFlyoutContentManager.TearDown();
 				_onElementSelected = null;

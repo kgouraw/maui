@@ -194,17 +194,11 @@ namespace Microsoft.Maui.Platform
 				_shadowCanvas.Children.RemoveAt(0);
 			}
 
-			if (_shadowVisual != null)
-			{
-				_shadowVisual.Dispose();
-				_shadowVisual = null;
-			}
+			_shadowVisual?.Dispose();
+			_shadowVisual = null;
 
-			if (_dropShadow != null)
-			{
-				_dropShadow.Dispose();
-				_dropShadow = null;
-			}
+			_dropShadow?.Dispose();
+			_dropShadow = null;
 		}
 
 		async Task CreateShadowAsync()
@@ -289,10 +283,7 @@ namespace Microsoft.Maui.Platform
 					height = (float)frameworkElement.ActualHeight;
 				}
 
-				if (_shadowVisual is not null)
-				{
-					_shadowVisual.Size = new Vector2(width, height);
-				}
+				_shadowVisual?.Size = new Vector2(width, height);
 
 				if (_shadowHost is not null)
 				{
