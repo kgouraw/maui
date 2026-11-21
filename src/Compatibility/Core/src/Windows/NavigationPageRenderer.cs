@@ -48,8 +48,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				if (_tracker == value)
 					return;
 
-				if (_tracker != null)
-					_tracker.Dispose();
+				_tracker?.Dispose();
 
 				_tracker = value;
 			}
@@ -260,11 +259,9 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			SetPage(null, false, true);
 			_previousPage = null;
 
-			if (_parentTabbedPage != null)
-				_parentTabbedPage.PropertyChanged -= MultiPagePropertyChanged;
+			_parentTabbedPage?.PropertyChanged -= MultiPagePropertyChanged;
 
-			if (_parentFlyoutPage != null)
-				_parentFlyoutPage.PropertyChanged -= MultiPagePropertyChanged;
+			_parentFlyoutPage?.PropertyChanged -= MultiPagePropertyChanged;
 
 			//if (_navManager != null)
 			//{
@@ -319,10 +316,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 		{
 			var parentPages = Element.GetParentPages();
 
-			if (_parentTabbedPage != null)
-				_parentTabbedPage.PropertyChanged -= MultiPagePropertyChanged;
-			if (_parentFlyoutPage != null)
-				_parentFlyoutPage.PropertyChanged -= MultiPagePropertyChanged;
+			_parentTabbedPage?.PropertyChanged -= MultiPagePropertyChanged;
+			_parentFlyoutPage?.PropertyChanged -= MultiPagePropertyChanged;
 
 			foreach (Page parentPage in parentPages)
 			{
@@ -330,10 +325,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 				_parentFlyoutPage = parentPage as FlyoutPage;
 			}
 
-			if (_parentTabbedPage != null)
-				_parentTabbedPage.PropertyChanged += MultiPagePropertyChanged;
-			if (_parentFlyoutPage != null)
-				_parentFlyoutPage.PropertyChanged += MultiPagePropertyChanged;
+			_parentTabbedPage?.PropertyChanged += MultiPagePropertyChanged;
+			_parentFlyoutPage?.PropertyChanged += MultiPagePropertyChanged;
 
 			UpdateShowTitle();
 			UpdateTitleOnParents();
@@ -689,15 +682,13 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			if (_parentTabbedPage != null)
 			{
 				render = Platform.GetRenderer(_parentTabbedPage) as ITitleProvider;
-				if (render != null)
-					render.ShowTitle = (_parentTabbedPage.CurrentPage == Element) && NavigationPage.GetHasNavigationBar(_currentPage);
+				render?.ShowTitle = (_parentTabbedPage.CurrentPage == Element) && NavigationPage.GetHasNavigationBar(_currentPage);
 			}
 
 			if (_parentFlyoutPage != null)
 			{
 				render = Platform.GetRenderer(_parentFlyoutPage) as ITitleProvider;
-				if (render != null)
-					render.ShowTitle = (_parentFlyoutPage.Detail == Element) && NavigationPage.GetHasNavigationBar(_currentPage);
+				render?.ShowTitle = (_parentFlyoutPage.Detail == Element) && NavigationPage.GetHasNavigationBar(_currentPage);
 			}
 
 			if (render != null && render.ShowTitle)

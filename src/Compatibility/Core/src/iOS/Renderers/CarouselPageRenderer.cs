@@ -68,8 +68,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 			OnElementChanged(new VisualElementChangedEventArgs(oldElement, element));
 
-			if (element != null)
-				element.SendViewInitialized(NativeView);
+			element?.SendViewInitialized(NativeView);
 
 			_previousPage = Carousel?.CurrentPage;
 		}
@@ -157,8 +156,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 		{
 			base.ViewDidUnload();
 
-			if (_scrollView != null)
-				_scrollView.DecelerationEnded -= OnDecelerationEnded;
+			_scrollView?.DecelerationEnded -= OnDecelerationEnded;
 
 			if (Carousel != null)
 			{
@@ -178,8 +176,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 			{
 				_previousPage = null;
 
-				if (_scrollView != null)
-					_scrollView.DecelerationEnded -= OnDecelerationEnded;
+				_scrollView?.DecelerationEnded -= OnDecelerationEnded;
 
 				if (Carousel != null)
 				{
@@ -204,11 +201,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 					PageController?.SendDisappearing();
 				}
 
-				if (_tracker != null)
-				{
-					_tracker.Dispose();
-					_tracker = null;
-				}
+				_tracker?.Dispose();
+				_tracker = null;
 
 				Element = null;
 				_disposed = true;

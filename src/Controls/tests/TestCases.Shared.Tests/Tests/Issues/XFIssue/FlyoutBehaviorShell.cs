@@ -3,6 +3,7 @@ using UITest.Appium;
 using UITest.Core;
 
 namespace Microsoft.Maui.TestCases.Tests.Issues;
+
 public class FlyoutBehaviorShell : _IssuesUITest
 {
 	public FlyoutBehaviorShell(TestDevice testDevice) : base(testDevice)

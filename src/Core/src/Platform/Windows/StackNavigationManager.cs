@@ -36,8 +36,7 @@ namespace Microsoft.Maui.Platform
 		public virtual void Connect(IStackNavigation navigationView, Frame navigationFrame)
 		{
 			_connected = true;
-			if (_navigationFrame != null)
-				_navigationFrame.Navigated -= OnNavigated;
+			_navigationFrame?.Navigated -= OnNavigated;
 
 			FirePendingNavigationFinished();
 
@@ -52,8 +51,7 @@ namespace Microsoft.Maui.Platform
 		public virtual void Disconnect(IStackNavigation navigationView, Frame navigationFrame)
 		{
 			_connected = false;
-			if (_navigationFrame != null)
-				_navigationFrame.Navigated -= OnNavigated;
+			_navigationFrame?.Navigated -= OnNavigated;
 
 			FirePendingNavigationFinished();
 			_navigationFrame = null;

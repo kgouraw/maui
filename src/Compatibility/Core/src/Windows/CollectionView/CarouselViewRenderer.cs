@@ -266,8 +266,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 		[PortHandler]
 		void UpdateIsBounceEnabled()
 		{
-			if (_scrollViewer != null)
-				_scrollViewer.IsScrollInertiaEnabled = CarouselView.IsBounceEnabled;
+			_scrollViewer?.IsScrollInertiaEnabled = CarouselView.IsBounceEnabled;
 		}
 
 		void UpdateItemSpacing()
@@ -552,8 +551,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			if (e.NewSize.Width > 0 && e.NewSize.Height > 0)
 			{
 				ListViewBase.SizeChanged -= InitialSetup;
-				if (_scrollViewer != null)
-					_scrollViewer.SizeChanged -= InitialSetup;
+				_scrollViewer?.SizeChanged -= InitialSetup;
 
 				UpdateItemsSource();
 				UpdateSnapPointsType();

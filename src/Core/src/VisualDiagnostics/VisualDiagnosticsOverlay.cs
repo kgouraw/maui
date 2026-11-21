@@ -221,7 +221,7 @@ namespace Microsoft.Maui
 
 			RemoveAdorners();
 
-			if (e.VisualTreeElements.Any())
+			if (e.VisualTreeElements.Count != 0)
 				AddAdorner(e.VisualTreeElements.First());
 		}
 	}
