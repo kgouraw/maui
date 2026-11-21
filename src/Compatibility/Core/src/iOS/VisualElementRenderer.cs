@@ -179,8 +179,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.MacOS
 
 			Performance.Start(out string reference);
 
-			if (oldElement != null)
-				oldElement.PropertyChanged -= _propertyChangedHandler;
+			oldElement?.PropertyChanged -= _propertyChangedHandler;
 
 			if (element != null)
 			{
@@ -286,21 +285,12 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.MacOS
 
 			if (disposing)
 			{
-				if (_events != null)
-				{
-					_events.Dispose();
-					_events = null;
-				}
-				if (_tracker != null)
-				{
-					_tracker.Dispose();
-					_tracker = null;
-				}
-				if (_packager != null)
-				{
-					_packager.Dispose();
-					_packager = null;
-				}
+				_events?.Dispose();
+				_events = null;
+				_tracker?.Dispose();
+				_tracker = null;
+				_packager?.Dispose();
+				_packager = null;
 
 				// The ListView can create renderers and unhook them from the Element before Dispose is called in CalculateHeightForCell.
 				// Thus, it is possible that this work is already completed.

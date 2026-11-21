@@ -300,8 +300,7 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 					(primaries = primaries ?? new List<UIBarButtonItem>()).Add(item.ToUIBarButtonItem(false, true));
 				}
 
-				if (primaries != null)
-					primaries.Reverse();
+				primaries?.Reverse();
 			}
 
 			NavigationItem.SetRightBarButtonItems(primaries == null ? Array.Empty<UIBarButtonItem>() : primaries.ToArray(), false);
@@ -483,13 +482,11 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 			if (BackButtonBehavior == value)
 				return;
 
-			if (BackButtonBehavior != null)
-				BackButtonBehavior.PropertyChanged -= OnBackButtonBehaviorPropertyChanged;
+			BackButtonBehavior?.PropertyChanged -= OnBackButtonBehaviorPropertyChanged;
 
 			BackButtonBehavior = value;
 
-			if (BackButtonBehavior != null)
-				BackButtonBehavior.PropertyChanged += OnBackButtonBehaviorPropertyChanged;
+			BackButtonBehavior?.PropertyChanged += OnBackButtonBehaviorPropertyChanged;
 
 			UpdateToolbarItemsInternal();
 		}
@@ -672,10 +669,7 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 
 		void UpdateFlowDirection()
 		{
-			if (_searchHandlerAppearanceTracker != null)
-			{
-				_searchHandlerAppearanceTracker.UpdateFlowDirection(_context.Shell);
-			}
+			_searchHandlerAppearanceTracker?.UpdateFlowDirection(_context.Shell);
 			if (_searchController != null)
 			{
 				_searchController.View.UpdateFlowDirection(_context.Shell);
@@ -833,8 +827,7 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 			_searchHandlerAppearanceTracker?.UpdateSearchBarColors();
 			UpdateShellToMyPage();
 
-			if (_context.Shell.Toolbar != null)
-				_context.Shell.Toolbar.PropertyChanged += OnToolbarPropertyChanged;
+			_context.Shell.Toolbar?.PropertyChanged += OnToolbarPropertyChanged;
 		}
 
 		void SetDisappeared()
@@ -876,13 +869,11 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 				((INotifyCollectionChanged)Page.ToolbarItems).CollectionChanged -= OnToolbarItemsChanged;
 				((IShellController)_context.Shell).RemoveFlyoutBehaviorObserver(this);
 
-				if (BackButtonBehavior != null)
-					BackButtonBehavior.PropertyChanged -= OnBackButtonBehaviorPropertyChanged;
+				BackButtonBehavior?.PropertyChanged -= OnBackButtonBehaviorPropertyChanged;
 
 				_context.Shell.PropertyChanged -= HandleShellPropertyChanged;
 
-				if (_context.Shell.Toolbar != null)
-					_context.Shell.Toolbar.PropertyChanged -= OnToolbarPropertyChanged;
+				_context.Shell.Toolbar?.PropertyChanged -= OnToolbarPropertyChanged;
 
 				if (NavigationItem?.TitleView is TitleViewContainer tvc)
 					tvc.Disconnect();

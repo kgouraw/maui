@@ -86,14 +86,12 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 			{
 				contextCell.Update(tableView, cell, nativeCell);
 				var viewTableCell = contextCell.ContentCell as ViewCellRenderer.ViewTableCell;
-				if (viewTableCell != null)
-					viewTableCell.SupressSeparator = tableView.SeparatorStyle == UITableViewCellSeparatorStyle.None;
+				viewTableCell?.SupressSeparator = tableView.SeparatorStyle == UITableViewCellSeparatorStyle.None;
 				nativeCell = contextCell;
 			}
 
 			// Because the layer was hidden we need to layout the cell by hand
-			if (cellWithContent != null)
-				cellWithContent.LayoutSubviews();
+			cellWithContent?.LayoutSubviews();
 
 			return nativeCell;
 		}

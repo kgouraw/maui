@@ -32,8 +32,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 		[PortHandler]
 		protected override void OnElementChanged(ElementChangedEventArgs<Switch> e)
 		{
-			if (e.OldElement != null)
-				e.OldElement.Toggled -= OnElementToggled;
+			e.OldElement?.Toggled -= OnElementToggled;
 
 			if (e.NewElement != null)
 			{

@@ -32,10 +32,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 
 			if (e.OldElement != null)
 			{
-				if (Control != null)
-				{
-					Control.Loaded -= OnControlLoaded;
-				}
+				Control?.Loaded -= OnControlLoaded;
 			}
 
 			if (e.NewElement != null)

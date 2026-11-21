@@ -19,10 +19,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 		{
 			base.ConnectHandler(platformView);
 
-			if (ItemsView != null)
-			{
-				ItemsView.SelectionChanged += VirtualSelectionChanged;
-			}
+			ItemsView?.SelectionChanged += VirtualSelectionChanged;
 
 			var newListViewBase = ListViewBase;
 
@@ -53,10 +50,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 				oldListViewBase.ClearValue(ListViewBase.SelectionModeProperty);
 			}
 
-			if (ItemsView != null)
-			{
-				ItemsView.SelectionChanged -= VirtualSelectionChanged;
-			}
+			ItemsView?.SelectionChanged -= VirtualSelectionChanged;
 
 			base.DisconnectHandler(platformView);
 		}

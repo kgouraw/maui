@@ -21,10 +21,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 		{
 			_titleViewRendererController = titleViewRendererController;
 
-			if (TitleViewPresenter != null)
-			{
-				TitleViewPresenter.Loaded += OnTitleViewPresenterLoaded;
-			}
+			TitleViewPresenter?.Loaded += OnTitleViewPresenterLoaded;
 
 			if (CommandBar != null)
 			{
@@ -41,10 +38,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 		void OnTitleViewPresenterLoaded(object sender, RoutedEventArgs e)
 		{
 			UpdateTitleViewWidth();
-			if (TitleViewPresenter != null)
-			{
-				TitleViewPresenter.Loaded -= OnTitleViewPresenterLoaded;
-			}
+			TitleViewPresenter?.Loaded -= OnTitleViewPresenterLoaded;
 		}
 
 		void commandBarUnloaded(object sender, RoutedEventArgs e)
