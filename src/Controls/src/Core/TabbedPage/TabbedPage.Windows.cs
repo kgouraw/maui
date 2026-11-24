@@ -133,8 +133,7 @@ namespace Microsoft.Maui.Controls
 
 			Appearing -= OnTabbedPageAppearing;
 			Disappearing -= OnTabbedPageDisappearing;
-			if (_navigationView != null)
-				_navigationView.SelectionChanged -= OnSelectedMenuItemChanged;
+			_navigationView?.SelectionChanged -= OnSelectedMenuItemChanged;
 
 			OnTabbedPageDisappearing(this, EventArgs.Empty);
 
@@ -145,14 +144,12 @@ namespace Microsoft.Maui.Controls
 
 		void OnTabbedPageAppearing(object? sender, EventArgs e)
 		{
-			if (_navigationView != null)
-				_navigationView.PaneDisplayMode = NavigationViewPaneDisplayMode.Top;
+			_navigationView?.PaneDisplayMode = NavigationViewPaneDisplayMode.Top;
 		}
 
 		void OnTabbedPageDisappearing(object? sender, EventArgs e)
 		{
-			if (_navigationView != null)
-				_navigationView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
+			_navigationView?.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
 		}
 
 		void OnApplyTemplateFinished(object? sender, EventArgs e)

@@ -191,8 +191,7 @@ namespace Microsoft.Maui.Handlers
 				platformView.OnEditingStarted -= OnEditingStarted;
 				platformView.OnEditingStopped -= OnEditingStopped;
 
-				if (editor is not null)
-					editor.EditingChanged -= OnEditingChanged;
+				editor?.EditingChanged -= OnEditingChanged;
 			}
 
 			void OnMovedToWindow(object? sender, EventArgs e)

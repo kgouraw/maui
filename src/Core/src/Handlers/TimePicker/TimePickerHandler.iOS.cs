@@ -102,14 +102,12 @@ namespace Microsoft.Maui.Handlers
 
 			void OnStarted(object? sender, EventArgs eventArgs)
 			{
-				if (VirtualView is not null)
-					VirtualView.IsFocused = true;
+				VirtualView?.IsFocused = true;
 			}
 
 			void OnEnded(object? sender, EventArgs eventArgs)
 			{
-				if (VirtualView is not null)
-					VirtualView.IsFocused = false;
+				VirtualView?.IsFocused = false;
 			}
 
 			void OnValueChanged(object? sender, EventArgs e)

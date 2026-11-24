@@ -100,25 +100,25 @@ namespace Microsoft.Maui
 
 		public class ActivityLifecycleCallbacks : Java.Lang.Object, IActivityLifecycleCallbacks
 		{
-			public void OnActivityCreated(Activity activity, Bundle? savedInstanceState) =>
+			public static void OnActivityCreated(Activity activity, Bundle? savedInstanceState) =>
 				IPlatformApplication.Current?.Services?.InvokeLifecycleEvents<AndroidLifecycle.OnCreate>(del => del(activity, savedInstanceState));
 
-			public void OnActivityStarted(Activity activity) =>
+			public static void OnActivityStarted(Activity activity) =>
 				IPlatformApplication.Current?.Services?.InvokeLifecycleEvents<AndroidLifecycle.OnStart>(del => del(activity));
 
-			public void OnActivityResumed(Activity activity) =>
+			public static void OnActivityResumed(Activity activity) =>
 				IPlatformApplication.Current?.Services?.InvokeLifecycleEvents<AndroidLifecycle.OnResume>(del => del(activity));
 
-			public void OnActivityPaused(Activity activity) =>
+			public static void OnActivityPaused(Activity activity) =>
 				IPlatformApplication.Current?.Services?.InvokeLifecycleEvents<AndroidLifecycle.OnPause>(del => del(activity));
 
-			public void OnActivityStopped(Activity activity) =>
+			public static void OnActivityStopped(Activity activity) =>
 				IPlatformApplication.Current?.Services?.InvokeLifecycleEvents<AndroidLifecycle.OnStop>(del => del(activity));
 
-			public void OnActivitySaveInstanceState(Activity activity, Bundle outState) =>
+			public static void OnActivitySaveInstanceState(Activity activity, Bundle outState) =>
 				IPlatformApplication.Current?.Services?.InvokeLifecycleEvents<AndroidLifecycle.OnSaveInstanceState>(del => del(activity, outState));
 
-			public void OnActivityDestroyed(Activity activity) =>
+			public static void OnActivityDestroyed(Activity activity) =>
 				IPlatformApplication.Current?.Services?.InvokeLifecycleEvents<AndroidLifecycle.OnDestroy>(del => del(activity));
 		}
 	}

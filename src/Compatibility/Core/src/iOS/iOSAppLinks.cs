@@ -73,9 +73,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 				activity.BecomeCurrent();
 
 			var aL = deepLinkUri as AppLinkEntry;
-			if (aL != null)
-			{
-				aL.PropertyChanged += (sender, e) =>
+			aL?.PropertyChanged += (sender, e) =>
 				{
 					if (e.PropertyName == AppLinkEntry.IsLinkActiveProperty.PropertyName)
 					{
@@ -85,7 +83,6 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 							activity.ResignCurrent();
 					}
 				};
-			}
 		}
 
 		static Task<bool> ClearIndexedDataAsync()
