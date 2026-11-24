@@ -34,7 +34,7 @@ namespace Maui.Controls.Sample
 					handlers.AddHandler<Microsoft.Maui.Controls.CollectionView, Microsoft.Maui.Controls.Handlers.Items2.CollectionViewHandler2>();
 					handlers.AddHandler<Microsoft.Maui.Controls.CarouselView, Microsoft.Maui.Controls.Handlers.Items2.CarouselViewHandler2>();
 				});
-				
+
 #endif
 
 			appBuilder.Services.AddTransient<TransientPage>();

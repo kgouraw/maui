@@ -155,11 +155,9 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 		{
 			_pageAnimation?.StopAnimation(true);
 			_pageAnimation = null;
-			if (ShellSection != null)
-				ShellSection.PropertyChanged -= OnShellSectionPropertyChanged;
+			ShellSection?.PropertyChanged -= OnShellSectionPropertyChanged;
 
-			if (ShellSectionController != null)
-				ShellSectionController.ItemsCollectionChanged -= OnShellSectionItemsChanged;
+			ShellSectionController?.ItemsCollectionChanged -= OnShellSectionItemsChanged;
 
 			if (_shellContext?.Shell != null)
 				_shellContext.Shell.PropertyChanged -= HandleShellPropertyChanged;
@@ -394,15 +392,13 @@ namespace Microsoft.Maui.Controls.Platform.Compatibility
 
 			newRenderer.ViewController.View.Frame = new CGRect(-motionDirection * View.Bounds.Width, 0, View.Bounds.Width, View.Bounds.Height);
 
-			if (oldRenderer.ViewController.View != null)
-				oldRenderer.ViewController.View.Frame = containerView.Bounds;
+			oldRenderer.ViewController.View?.Frame = containerView.Bounds;
 
 			return new UIViewPropertyAnimator(0.25, UIViewAnimationCurve.EaseOut, () =>
 			{
 				newRenderer.ViewController.View.Frame = containerView.Bounds;
 
-				if (oldRenderer.ViewController.View != null)
-					oldRenderer.ViewController.View.Frame = new CGRect(motionDirection * View.Bounds.Width, 0, View.Bounds.Width, View.Bounds.Height);
+				oldRenderer.ViewController.View?.Frame = new CGRect(motionDirection * View.Bounds.Width, 0, View.Bounds.Width, View.Bounds.Height);
 
 			});
 		}

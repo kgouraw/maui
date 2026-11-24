@@ -430,8 +430,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			if (_container == null || page == null)
 				return;
 
-			if (_modalBackgroundPage != null)
-				_modalBackgroundPage.GetCurrentPage()?.SendAppearing();
+			_modalBackgroundPage?.GetCurrentPage()?.SendAppearing();
 
 			IVisualElementRenderer pageRenderer = GetRenderer(page);
 
@@ -444,8 +443,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 			if (_container == null || page == null)
 				return;
 
-			if (_modalBackgroundPage != null)
-				_modalBackgroundPage.GetCurrentPage()?.SendDisappearing();
+			_modalBackgroundPage?.GetCurrentPage()?.SendDisappearing();
 
 
 

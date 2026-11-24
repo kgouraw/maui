@@ -60,6 +60,7 @@ public class ShellFlyoutHeaderBehavior : TestShell
 
 			page.Content = layout;
 			return page;
-		};
+		}
+		;
 	}
 }

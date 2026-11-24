@@ -249,8 +249,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 				previousView = null;
 			}
 
-			if (previousView != null)
-				previousView.Destroyed += OnDestroyed;
+			previousView?.Destroyed += OnDestroyed;
 		}
 
 		void OnElementSizeChanged(object sender, EventArgs e)

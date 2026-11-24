@@ -204,11 +204,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android
 					_actionView = null;
 				}
 
-				if (_initialPoint != null)
-				{
-					_initialPoint.Dispose();
-					_initialPoint = null;
-				}
+				_initialPoint?.Dispose();
+				_initialPoint = null;
 			}
 
 			_isDisposed = true;
@@ -1471,8 +1468,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android
 
 		void EnableParentGesture(bool isGestureEnabled)
 		{
-			if (_viewPagerParent != null)
-				_viewPagerParent.EnableGesture = isGestureEnabled;
+			_viewPagerParent?.EnableGesture = isGestureEnabled;
 		}
 
 		void OnOpenRequested(object sender, OpenRequestedEventArgs e)

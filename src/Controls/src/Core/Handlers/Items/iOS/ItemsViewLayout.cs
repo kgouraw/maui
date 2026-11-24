@@ -81,10 +81,7 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 
 			if (disposing)
 			{
-				if (_itemsLayout != null)
-				{
-					_itemsLayout.PropertyChanged -= LayoutOnPropertyChanged;
-				}
+				_itemsLayout?.PropertyChanged -= LayoutOnPropertyChanged;
 			}
 
 			base.Dispose(disposing);
@@ -624,10 +621,10 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 			var group = 0;
 			var collectionViewWidth = CollectionView.Bounds.Width;
 			var numberOfItemsInGroup = CollectionView.NumberOfItemsInSection(group);
-			
+
 			// Calculate the number of cells that can fit in the viewport
 			var numberOfCellsToCheck = Math.Min((int)(collectionViewWidth / existingMeasurement.Width) + 1, numberOfItemsInGroup);
-			
+
 			// Iterate through the cells and find the one with a wider width
 			for (int i = 1; i < numberOfCellsToCheck; i++)
 			{
@@ -636,13 +633,13 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 				{
 					cellAtIndex.ConstrainTo(ConstrainedDimension);
 					var measureCellAtIndex = cellAtIndex.Measure();
-					
+
 					// Check if the cell has a wider width
 					if (measureCellAtIndex.Width > existingMeasurement.Width)
 					{
 						existingMeasurement = measureCellAtIndex;
 					}
-					
+
 					// TODO: Cache this cell size
 				}
 			}

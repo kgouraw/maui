@@ -94,8 +94,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 
 			EffectUtilities.RegisterEffectControlProvider(this, oldElement, element);
 
-			if (element != null)
-				element.SendViewInitialized(NativeView);
+			element?.SendViewInitialized(NativeView);
 		}
 
 		public void SetElementSize(Size size)
@@ -174,17 +173,11 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 				Element.SizeChanged -= PageOnSizeChanged;
 				Element.PropertyChanged -= HandlePropertyChanged;
 
-				if (_tracker != null)
-				{
-					_tracker.Dispose();
-					_tracker = null;
-				}
+				_tracker?.Dispose();
+				_tracker = null;
 
-				if (_events != null)
-				{
-					_events.Dispose();
-					_events = null;
-				}
+				_events?.Dispose();
+				_events = null;
 
 				if (_tapGesture != null)
 				{
@@ -386,8 +379,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 			if (OperatingSystem.IsIOSVersionAtLeast(11))
 				SetNeedsUpdateOfHomeIndicatorAutoHidden();
 
-			if (detailRenderer.ViewController.View.Superview != null)
-				detailRenderer.ViewController.View.Superview.BackgroundColor = Microsoft.Maui.Graphics.Colors.Black.ToPlatform();
+			detailRenderer.ViewController.View.Superview?.BackgroundColor = Microsoft.Maui.Graphics.Colors.Black.ToPlatform();
 
 			ToggleAccessibilityElementsHidden();
 		}
@@ -434,12 +426,10 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 		void ToggleAccessibilityElementsHidden()
 		{
 			var flyoutView = _flyoutController?.View;
-			if (flyoutView != null)
-				flyoutView.AccessibilityElementsHidden = !Presented;
+			flyoutView?.AccessibilityElementsHidden = !Presented;
 
 			var detailView = _detailController?.View;
-			if (detailView != null)
-				detailView.AccessibilityElementsHidden = Presented;
+			detailView?.AccessibilityElementsHidden = Presented;
 		}
 
 		void UpdatePanGesture()
